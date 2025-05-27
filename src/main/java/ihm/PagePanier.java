@@ -23,6 +23,12 @@ import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import javax.swing.ImageIcon;
 
 public class PagePanier extends JFrame {
 
@@ -52,7 +58,7 @@ public class PagePanier extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 
-	private JTextField textField_5;
+	private JTextField txtLeCacaEst;
 	private JTextField txtRechercherUnArticle;
 
 	/**
@@ -60,7 +66,7 @@ public class PagePanier extends JFrame {
 	 */
 	public PagePanier() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 346);
+		setBounds(100, 100, 871, 390);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -71,30 +77,16 @@ public class PagePanier extends JFrame {
 		contentPane.add(Title, BorderLayout.NORTH);
 		
 		JLabel Market_title = new JLabel("VOTRE PANIER");
+		Market_title.setHorizontalAlignment(SwingConstants.CENTER);
 		Market_title.setFont(new Font("Script MT Bold", Font.PLAIN, 30));
+		Title.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Victor\\Documents\\TomatoSeedShop\\src\\main\\resources\\images\\ProjectImages\\PetitPanier3.png"));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Script MT Bold", Font.BOLD, 30));
-		GroupLayout gl_Title = new GroupLayout(Title);
-		gl_Title.setHorizontalGroup(
-			gl_Title.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Title.createSequentialGroup()
-					.addGap(29)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(Market_title, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-					.addGap(483))
-		);
-		gl_Title.setVerticalGroup(
-			gl_Title.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Title.createSequentialGroup()
-					.addComponent(Market_title, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(4))
-				.addGroup(gl_Title.createSequentialGroup()
-					.addGap(10)
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
-		);
-		Title.setLayout(gl_Title);
+		Title.add(lblNewLabel, BorderLayout.WEST);
+		Title.add(Market_title, BorderLayout.CENTER);
 
 		JScrollPane TomatoList = new JScrollPane();
 		contentPane.add(TomatoList, BorderLayout.CENTER);
@@ -102,95 +94,87 @@ public class PagePanier extends JFrame {
 		JPanel BottomPane = new JPanel();
 		contentPane.add(BottomPane, BorderLayout.SOUTH);
 		BottomPane.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JPanel panel = new JPanel();
-		BottomPane.add(panel);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
-
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
-		
-		txtRechercherUnArticle = new JTextField();
-		txtRechercherUnArticle.setText("Rechercher un article");
-		txtRechercherUnArticle.setColumns(10);
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(txtRechercherUnArticle, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(18)
-					.addComponent(txtRechercherUnArticle, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(18, Short.MAX_VALUE))
-		);
-		panel_2.setLayout(gl_panel_2);
-
-		JPanel panel_5 = new JPanel();
-		panel.add(panel_5);
-		panel_5.setLayout(new GridLayout(3, 3, 0, 0));
-
-		txtSoustotal = new JTextField();
-		txtSoustotal.setFont(new Font("Roboto", Font.BOLD, 10));
-		txtSoustotal.setEditable(false);
-		txtSoustotal.setText("Sous-total :");
-		panel_5.add(txtSoustotal);
-		txtSoustotal.setColumns(10);
-
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Roboto", Font.BOLD, 10));
-		textField_3.setForeground(new Color(0, 0, 0));
-		textField_3.setBackground(new Color(255, 255, 128));
-		textField_3.setEditable(false);
-		panel_5.add(textField_3);
-		textField_3.setColumns(10);
-
-		txtFraisDePort = new JTextField();
-		txtFraisDePort.setFont(new Font("Roboto", Font.BOLD, 10));
-		txtFraisDePort.setText("Expédition (forfait):");
-		txtFraisDePort.setEditable(false);
-		panel_5.add(txtFraisDePort);
-		txtFraisDePort.setColumns(10);
-
-		textField_4 = new JTextField();
-		textField_4.setFont(new Font("Roboto", Font.BOLD, 10));
-		textField_4.setBackground(new Color(255, 255, 128));
-		textField_4.setEditable(false);
-		panel_5.add(textField_4);
-		textField_4.setColumns(10);
-
-		txtTotal = new JTextField();
-		txtTotal.setForeground(new Color(255, 0, 0));
-		txtTotal.setEditable(false);
-		txtTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
-		txtTotal.setText("TOTAL :");
-		panel_5.add(txtTotal);
-		txtTotal.setColumns(10);
-
-		textField_5 = new JTextField();
-		textField_5.setForeground(new Color(0, 0, 0));
-		textField_5.setFont(new Font("Roboto", Font.BOLD, 14));
-		textField_5.setBackground(new Color(255, 255, 128));
-		textField_5.setEditable(false);
-		panel_5.add(textField_5);
-		textField_5.setColumns(10);
-
-		JPanel Validation = new JPanel();
-		BottomPane.add(Validation);
-		Validation.setLayout(new GridLayout(0, 3, 0, 0));
-
-		JButton ButtonValiderPanier = new JButton("Valider le panier");
-		Validation.add(ButtonValiderPanier);
-
-		JButton ButtonViderPanier = new JButton("Vider le panier");
-		Validation.add(ButtonViderPanier);
-
-		JButton ButtonContinuerAchats = new JButton("Continuer les achats");
-		Validation.add(ButtonContinuerAchats);
+										
+										JPanel panel_1 = new JPanel();
+										BottomPane.add(panel_1);
+										panel_1.setLayout(new BorderLayout(0, 0));
+										
+										JPanel panel_3 = new JPanel();
+										panel_1.add(panel_3, BorderLayout.NORTH);
+										panel_3.setLayout(new GridLayout(0, 2, 0, 0));
+										
+										txtRechercherUnArticle = new JTextField();
+										panel_3.add(txtRechercherUnArticle);
+										txtRechercherUnArticle.setText("Rechercher un article");
+										txtRechercherUnArticle.setColumns(10);
+																								
+																										JPanel panel_5 = new JPanel();
+																										panel_3.add(panel_5);
+																										panel_5.setLayout(new GridLayout(3, 3, 0, 0));
+																										
+																												txtSoustotal = new JTextField();
+																												txtSoustotal.setFont(new Font("Roboto", Font.BOLD, 10));
+																												txtSoustotal.setEditable(false);
+																												txtSoustotal.setText("Sous-total :");
+																												panel_5.add(txtSoustotal);
+																												txtSoustotal.setColumns(10);
+																												
+																														textField_3 = new JTextField();
+																														textField_3.setFont(new Font("Roboto", Font.BOLD, 10));
+																														textField_3.setForeground(new Color(0, 0, 0));
+																														textField_3.setBackground(new Color(255, 255, 255));
+																														textField_3.setEditable(false);
+																														panel_5.add(textField_3);
+																														textField_3.setColumns(10);
+																														
+																																txtFraisDePort = new JTextField();
+																																txtFraisDePort.setFont(new Font("Roboto", Font.BOLD, 10));
+																																txtFraisDePort.setText("Expédition (forfait):");
+																																txtFraisDePort.setEditable(false);
+																																panel_5.add(txtFraisDePort);
+																																txtFraisDePort.setColumns(10);
+																																
+																																		textField_4 = new JTextField();
+																																		textField_4.setFont(new Font("Roboto", Font.BOLD, 10));
+																																		textField_4.setBackground(new Color(255, 255, 255));
+																																		textField_4.setEditable(false);
+																																		panel_5.add(textField_4);
+																																		textField_4.setColumns(10);
+																																		
+																																				txtTotal = new JTextField();
+																																				txtTotal.setForeground(new Color(0, 128, 0));
+																																				txtTotal.setEditable(false);
+																																				txtTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
+																																				txtTotal.setText("TOTAL :");
+																																				panel_5.add(txtTotal);
+																																				txtTotal.setColumns(10);
+																																				
+																																						txtLeCacaEst = new JTextField();
+																																						txtLeCacaEst.setForeground(new Color(0, 83, 0));
+																																						txtLeCacaEst.setFont(new Font("Roboto", Font.BOLD, 14));
+																																						txtLeCacaEst.setBackground(new Color(217, 255, 217));
+																																						txtLeCacaEst.setEditable(false);
+																																						panel_5.add(txtLeCacaEst);
+																																						txtLeCacaEst.setColumns(10);
+										
+										JPanel panel_4 = new JPanel();
+										panel_1.add(panel_4, BorderLayout.SOUTH);
+												panel_4.setLayout(new GridLayout(0, 3, 0, 0));
+										
+												JButton ButtonViderPanier = new JButton("Vider le panier");
+												ButtonViderPanier.setForeground(new Color(255, 0, 0));
+												panel_4.add(ButtonViderPanier);
+												
+														JButton ButtonContinuerAchats = new JButton("Continuer les achats");
+														panel_4.add(ButtonContinuerAchats);
+														
+																JButton ButtonValiderPanier = new JButton("Valider le panier");
+																ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
+																panel_4.add(ButtonValiderPanier);
+																ButtonValiderPanier.addActionListener(new ActionListener() {
+																	public void actionPerformed(ActionEvent e) {
+																	}
+																});
 
 		// Add ActionListener to "Vider le panier" button
 		ButtonViderPanier.addActionListener(new ActionListener() {
@@ -212,7 +196,7 @@ public class PagePanier extends JFrame {
 		// Update the relevant fields to reflect an empty cart
 		textField_3.setText("");
 		textField_4.setText("");
-		textField_5.setText("");
+		txtLeCacaEst.setText("");
 		JOptionPane.showMessageDialog(this, "Le panier est maintenant vide.");
 	}
 }

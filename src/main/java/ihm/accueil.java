@@ -20,6 +20,16 @@ import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class accueil extends JFrame {
 
@@ -55,20 +65,29 @@ public class accueil extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelHeader = new JPanel();
-		contentPane.add(panelHeader, BorderLayout.NORTH);
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblTitre = new JLabel("Nos graines de tomates");
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
-		panelHeader.add(lblTitre);
+		panel.add(lblTitre, BorderLayout.CENTER);
 		
-		JLabel lblPrix = new JLabel("New label");
-		lblPrix.setHorizontalAlignment(SwingConstants.RIGHT);
-		panelHeader.add(lblPrix);
+		JButton btnPanier = new JButton("New button");
+		btnPanier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		panel.add(btnPanier, BorderLayout.EAST);
 		
 		scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
+		afficherToutesLesTomates();
+
+	}
+	
+	public void afficherToutesLesTomates() {
 		Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("/Users/liam/Documents/Cours/S2/S2.01 /TomatoSeedShop/src/main/resources/data/tomates.json");
 		
 		List<String> noms = new ArrayList<>();
@@ -79,7 +98,6 @@ public class accueil extends JFrame {
 		
 		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
 		scrollPane.setViewportView(listeNoms);
-
 	}
 
 }
