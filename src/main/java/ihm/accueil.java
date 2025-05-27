@@ -27,7 +27,7 @@ public class accueil extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
-	private Panier panier;
+	private Panier pani er;
 	
 	/**
 	 * Launch the application.

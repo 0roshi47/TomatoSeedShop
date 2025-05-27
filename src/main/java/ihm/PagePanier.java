@@ -66,7 +66,7 @@ public class PagePanier extends JFrame {
 	 */
 	public PagePanier() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 871, 390);
+		setBounds(100, 100, 657, 390);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
