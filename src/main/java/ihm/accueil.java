@@ -23,6 +23,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class accueil extends JFrame {
 
@@ -91,10 +93,28 @@ public class accueil extends JFrame {
 		scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-
+		afficherToutesLesTomates();
 
 	}
 	
-	
+	public void afficherToutesLesTomates() {
+		Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
+		
+		List<String> noms = new ArrayList<>();
+		
+		for (Tomate tomate : tomates.getTomates()) {
+			noms.add(tomate.getDésignation());
+		}
+		
+		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
+		listeNoms.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				PagePanier pagePanier = new PagePanier(accueil.this.panier);
+		        pagePanier.setVisible(true);
+			}
+		});
+		scrollPane.setViewportView(listeNoms);
+	}
 
 }
