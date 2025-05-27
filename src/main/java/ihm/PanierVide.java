@@ -42,7 +42,9 @@ public class PanierVide {
 	 * Create the application.
 	 */
 	public PanierVide() {
+		
 		initialize();
+		
 	}
 
 	/**

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,11 +34,8 @@ public class PagePanier extends JDialog {
 	private JTextField txtLeCacaEst;
 	private JTextField txtRechercherUnArticle;
 
-	/**
-	 * Create the dialog.
-	 */
 	public PagePanier(Panier panier) {
-		setModal(true); // Important for dialog behavior
+		setModal(true); 
 		setTitle("Votre panier");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 657, 390);
@@ -45,7 +43,7 @@ public class PagePanier extends JDialog {
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPane, BorderLayout.CENTER); // main content
+		getContentPane().add(contentPane, BorderLayout.CENTER); 
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JPanel Title = new JPanel();
@@ -149,11 +147,9 @@ public class PagePanier extends JDialog {
 		panel_4.add(ButtonValiderPanier);
 		ButtonValiderPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Add validation logic here
 			}
 		});
 
-		// Add ActionListener to "Vider le panier" button
 		ButtonViderPanier.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -161,8 +157,8 @@ public class PagePanier extends JDialog {
 						"Voulez-vous vraiment supprimer le panier ?", "Selectionner une option",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (response == JOptionPane.YES_OPTION) {
-					// Code to clear the cart
 					clearCart();
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				}
 			}
 		});
