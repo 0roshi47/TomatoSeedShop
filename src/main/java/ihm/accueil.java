@@ -27,6 +27,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class accueil extends JFrame {
 
@@ -70,12 +73,21 @@ public class accueil extends JFrame {
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblTitre, BorderLayout.CENTER);
 		
-		JLabel lblSommePanier = new JLabel("€");
-		panel.add(lblSommePanier, BorderLayout.EAST);
+		JButton btnPanier = new JButton("New button");
+		btnPanier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		panel.add(btnPanier, BorderLayout.EAST);
 		
 		scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
+		afficherToutesLesTomates();
+
+	}
+	
+	public void afficherToutesLesTomates() {
 		Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("/Users/liam/Documents/Cours/S2/S2.01 /TomatoSeedShop/src/main/resources/data/tomates.json");
 		
 		List<String> noms = new ArrayList<>();
@@ -86,7 +98,6 @@ public class accueil extends JFrame {
 		
 		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
 		scrollPane.setViewportView(listeNoms);
-
 	}
 
 }
