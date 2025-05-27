@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 public class accueil extends JFrame {
 
@@ -54,8 +55,16 @@ public class accueil extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Nos graines de tomates");
-		contentPane.add(lblNewLabel, BorderLayout.NORTH);
+		JPanel panelHeader = new JPanel();
+		contentPane.add(panelHeader, BorderLayout.NORTH);
+		
+		JLabel lblTitre = new JLabel("Nos graines de tomates");
+		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
+		panelHeader.add(lblTitre);
+		
+		JLabel lblPrix = new JLabel("New label");
+		lblPrix.setHorizontalAlignment(SwingConstants.RIGHT);
+		panelHeader.add(lblPrix);
 		
 		scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
