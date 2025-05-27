@@ -78,7 +78,7 @@ public class PagePanier extends JFrame {
 		
 		JLabel Market_title = new JLabel("VOTRE PANIER");
 		Market_title.setHorizontalAlignment(SwingConstants.CENTER);
-		Market_title.setFont(new Font("Script MT Bold", Font.PLAIN, 30));
+		Market_title.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 30));
 		Title.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("");
