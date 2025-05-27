@@ -27,6 +27,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+
+import modèle.Panier;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.ImageIcon;
 
@@ -34,22 +37,6 @@ public class PagePanier extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					PagePanier frame = new PagePanier();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	private JPanel contentPane;
 	private JTextField txtTotal;
@@ -60,13 +47,11 @@ public class PagePanier extends JFrame {
 
 	private JTextField txtLeCacaEst;
 	private JTextField txtRechercherUnArticle;
-	private panier panier;
 
 	/**
 	 * Create the frame.
 	 */
-	public PagePanier(panier panier) {
-		this.panier = panier;
+	public PagePanier(Panier panier) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 657, 390);
 		contentPane = new JPanel();

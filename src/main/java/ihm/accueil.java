@@ -29,7 +29,7 @@ public class accueil extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
-	private Panier pani er;
+	private Panier panier;
 	
 	/**
 	 * Launch the application.
@@ -52,7 +52,7 @@ public class accueil extends JFrame {
 	 */
 	public accueil() {
 		
-		panier = new Panier();
+		this.panier = new Panier();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -80,11 +80,12 @@ public class accueil extends JFrame {
 
 		btnPanier.setIcon(new ImageIcon(nouvelleImage));
 		btnPanier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PagePanier pagePanier = new PagePanier(this.panier);
-				pagePanier.setVisible(true);
-			}
+		    public void actionPerformed(ActionEvent arg0) {
+		        PagePanier pagePanier = new PagePanier(accueil.this.panier);
+		        pagePanier.setVisible(true);
+		    }
 		});
+
 		panel.add(btnPanier, BorderLayout.EAST);
 		
 		scrollPane = new JScrollPane();
