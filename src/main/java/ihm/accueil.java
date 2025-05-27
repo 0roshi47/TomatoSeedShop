@@ -9,24 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import modèle.OutilsBaseDonneesTomates;
+import modèle.Panier;
 import modèle.Tomate;
 import modèle.Tomates;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,7 +27,8 @@ public class accueil extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
-
+	private Panier panier;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -52,11 +44,14 @@ public class accueil extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public accueil() {
+		
+		panier = new Panier();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -76,6 +71,8 @@ public class accueil extends JFrame {
 		JButton btnPanier = new JButton("New button");
 		btnPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				PagePanier pagePanier = new PagePanier();
+				pagePanier.setVisible(true);
 			}
 		});
 		panel.add(btnPanier, BorderLayout.EAST);
