@@ -91,21 +91,10 @@ public class accueil extends JFrame {
 		scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		afficherToutesLesTomates();
+
 
 	}
 	
-	public void afficherToutesLesTomates() {
-		Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("/Users/liam/Documents/Cours/S2/S2.01 /TomatoSeedShop/src/main/resources/data/tomates.json");
-		
-		List<String> noms = new ArrayList<>();
-		
-		for (Tomate tomate : tomates.getTomates()) {
-			noms.add(tomate.getDésignation());
-		}
-		
-		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
-		scrollPane.setViewportView(listeNoms);
-	}
+	
 
 }

@@ -69,7 +69,7 @@ public class PagePanier extends JFrame {
 		Title.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(PagePanier.class.getResource("/ihm/PetitPanier3.png")));
+		lblNewLabel.setIcon(new ImageIcon(getClass().getResource("/images/ProjectImages/PetitPanier3.png")));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Script MT Bold", Font.BOLD, 30));
 		Title.add(lblNewLabel, BorderLayout.WEST);
@@ -168,7 +168,7 @@ public class PagePanier extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int response = JOptionPane.showConfirmDialog(PagePanier.this,
-						"Voulez-vous vraiment supprimer le panier ?", "SÃ©lectionner une option",
+						"Voulez-vous vraiment supprimer le panier ?", "Selectionner une option",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (response == JOptionPane.YES_OPTION) {
 					// Code to clear the cart
