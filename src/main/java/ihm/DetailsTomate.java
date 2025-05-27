@@ -37,8 +37,14 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.JSeparator;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.DefaultComboBoxModel;
 
-public class DetailTomate extends JFrame {
+public class DetailsTomate extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -50,7 +56,7 @@ public class DetailTomate extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DetailTomate frame = new DetailTomate();
+					DetailsTomate frame = new DetailsTomate();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,12 +68,13 @@ public class DetailTomate extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DetailTomate() {
+	public DetailsTomate() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 316);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setResizable(false);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -90,19 +97,29 @@ public class DetailTomate extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
 		
+		JPanel panelGauche = new JPanel();
+		panel.add(panelGauche);
+		panelGauche.setLayout(new BorderLayout(0, 0));
+		
 		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
+		panelGauche.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblDésignation = new JLabel("Tomates de test");
 		panel_1.add(lblDésignation, BorderLayout.NORTH);
 		
 		JLabel lblImage = new JLabel("");
-		lblImage.setIcon(new ImageIcon(getClass().getResource("/images/Tomates200x200/ananas-2-scaled.jpg")));
+		ImageIcon image = new ImageIcon(getClass().getResource("/images/Tomates200x200/ananas-2-scaled.jpg"));
+		lblImage.setIcon(image);
 		panel_1.add(lblImage, BorderLayout.CENTER);
 		
 		JLabel lblDisponibilité = new JLabel("En rupture");
 		panel_1.add(lblDisponibilité, BorderLayout.SOUTH);
+		
+		JComboBox produitsSimilaires = new JComboBox();
+		produitsSimilaires.setToolTipText("");
+		produitsSimilaires.setModel(new DefaultComboBoxModel(new String[] {"Produits similaires", "Truc", "Bidule", "Machin", "Chose"}));
+		panelGauche.add(produitsSimilaires, BorderLayout.SOUTH);
 		
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2);
