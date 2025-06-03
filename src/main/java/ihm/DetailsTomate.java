@@ -38,22 +38,23 @@ import java.util.List;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.SpringLayout;
 import java.awt.CardLayout;
+import java.awt.Font;
+import javax.swing.DropMode;
 
 public class DetailsTomate extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField textNbGraines;
-    private JTextField textField_1;
+    private JTextField textPrix;
 
     public DetailsTomate(String désignationTomate) {
     	Tomate tomate = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json").getTomate("Tomate Joie de la Table");
     	//Tomate tomate = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json").getTomate(désignationTomate);
     	
-    	
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Détail de la tomate");
-        setBounds(100, 100, 450, 316);
+        setBounds(100, 100, 515, 340);
         setResizable(false);
 
         contentPane = new JPanel();
@@ -120,7 +121,17 @@ public class DetailsTomate extends JDialog {
         panelDroite.add(panelDescription);
         panelDescription.setLayout(new BoxLayout(panelDescription, BoxLayout.X_AXIS));
         
-        JTextArea textDescription = new JTextArea();
+        String texte = "Variété rustique, précoce vigoureuse et productive.\\r\\n\\r\\nSes fruits de 150 à 250 g, très légèrement côtelés, ont une chair fine, juteuse et savoureuse.\\r\\n\\r\\nElles sont délicieuses en salade.";
+        //String texte = tomate.getDescription();
+        texte = texte.replace("\\r\\n\\r\\n", "\n\n");
+        JTextArea textDescription = new JTextArea(texte);
+        textDescription.setWrapStyleWord(true);
+        textDescription.setForeground(new Color(0, 0, 0));
+        textDescription.setLineWrap(true);
+        textDescription.setToolTipText("");
+        textDescription.setColumns(1);
+        textDescription.setEditable(false);
+        textDescription.setFont(new Font("Monospaced", Font.PLAIN, 12));
         panelDescription.add(textDescription);
         
         JPanel panelNbQuantite = new JPanel();
@@ -134,10 +145,11 @@ public class DetailsTomate extends JDialog {
         panelNbGraines.add(lblNbGraines);
         
         textNbGraines = new JTextField();
-        textNbGraines.setText(String.valueOf(tomate.getNbGrainesParSachet()));
+        textNbGraines.setText(String.valueOf(10));
+        //textNbGraines.setText(String.valueOf(tomate.getNbGrainesParSachet()));
         textNbGraines.setEditable(false);
         panelNbGraines.add(textNbGraines);
-        textNbGraines.setColumns(3);
+        textNbGraines.setColumns(2);
         
         JPanel panelQuantite = new JPanel();
         panelNbQuantite.add(panelQuantite, BorderLayout.CENTER);
@@ -145,13 +157,16 @@ public class DetailsTomate extends JDialog {
         JLabel lblQuantite = new JLabel("Prix :");
         panelQuantite.add(lblQuantite);
         
-        textField_1 = new JTextField();
-        textField_1.setEditable(false);
-        panelQuantite.add(textField_1);
-        textField_1.setColumns(3);
+        textPrix = new JTextField();
+        textPrix.setText("15€");
+        //textPrix.setText(String.valueOf(tomate.getPrixTTC() + "€"));
+        textPrix.setEditable(false);
+        panelQuantite.add(textPrix);
+        textPrix.setColumns(3);
         
-        JSpinner spinner = new JSpinner();
-        spinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
-        panelQuantite.add(spinner);
+        JSpinner spinnerQuantite = new JSpinner();
+        spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, 20, 1));
+        //spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, tomate.getStock(), 1));
+        panelQuantite.add(spinnerQuantite);
     }
 }
