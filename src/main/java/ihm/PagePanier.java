@@ -147,8 +147,9 @@ public class PagePanier extends JDialog {
 		ButtonValiderPanier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				Facture facture = new Facture();
-				facture.setVisible(true);
+				Coordonnées coordonnées = new Coordonnées();
+		        coordonnées.setModal(true); // Ensure it's non-modal
+				coordonnées.setVisible(true);
 			}
 		});
 		ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
