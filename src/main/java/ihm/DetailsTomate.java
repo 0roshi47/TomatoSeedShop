@@ -43,11 +43,13 @@ public class DetailsTomate extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField textField;
+    private JTextField textNbGraines;
     private JTextField textField_1;
 
     public DetailsTomate(String désignationTomate) {
-    	Tomate tomate = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json").getTomate(désignationTomate);
+    	Tomate tomate = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json").getTomate("Tomate Joie de la Table");
+    	//Tomate tomate = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json").getTomate(désignationTomate);
+    	
     	
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Détail de la tomate");
@@ -86,9 +88,10 @@ public class DetailsTomate extends JDialog {
         panelGauche.add(panelImage);
 
         JLabel lblImage = new JLabel("");
-        ImageIcon image = new ImageIcon(getClass().getResource("/images/Tomates200x200/" + tomate.getNomImage() + ".jpg"));
+        //lblImage.setIcon(new ImageIcon(getClass().getResource("/images/Tomates200x200/" + tomate.getNomImage() + ".jpg")));
+        lblImage.setIcon(new ImageIcon(getClass().getResource("/images/Tomates200x200/Tomate-Joie-de-la-Table-ressemble-scaled.jpg")));
+
         panelImage.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        lblImage.setIcon(image);
         panelImage.add(lblImage);
         
         JPanel panel_1 = new JPanel();
@@ -117,7 +120,7 @@ public class DetailsTomate extends JDialog {
         panelDroite.add(panelDescription);
         panelDescription.setLayout(new BoxLayout(panelDescription, BoxLayout.X_AXIS));
         
-        JTextArea textDescription = new JTextArea(tomate.getDescription());
+        JTextArea textDescription = new JTextArea();
         panelDescription.add(textDescription);
         
         JPanel panelNbQuantite = new JPanel();
@@ -130,10 +133,11 @@ public class DetailsTomate extends JDialog {
         JLabel lblNbGraines = new JLabel("Nombre de graines :");
         panelNbGraines.add(lblNbGraines);
         
-        textField = new JTextField();
-        textField.setEditable(false);
-        panelNbGraines.add(textField);
-        textField.setColumns(3);
+        textNbGraines = new JTextField();
+        textNbGraines.setText(String.valueOf(tomate.getNbGrainesParSachet()));
+        textNbGraines.setEditable(false);
+        panelNbGraines.add(textNbGraines);
+        textNbGraines.setColumns(3);
         
         JPanel panelQuantite = new JPanel();
         panelNbQuantite.add(panelQuantite, BorderLayout.CENTER);
