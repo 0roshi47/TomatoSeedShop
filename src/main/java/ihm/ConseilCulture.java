@@ -40,7 +40,7 @@ public class ConseilCulture extends JDialog {
 	 * Create the dialog.
 	 */
 	public ConseilCulture() {
-	    setBounds(100, 100, 500, 400);
+	    setBounds(100, 100, 593, 441);
 	    getContentPane().setLayout(new BorderLayout());
 	    
 	    JPanel panel = new JPanel();
@@ -62,27 +62,47 @@ public class ConseilCulture extends JDialog {
 	    contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 	    getContentPane().add(contentPanel, BorderLayout.CENTER);
 	    String[] conseils = {
+	    	    "Conseils de culture",
+	    	    "",
+	    	    "Semis : mars-avril",
+	    	    "Repiquage : après les gelées",
+	    	    "Récolte : juillet à septembre, voire octobre",
+	    	    "",
 	    	    "Semis :",
-	    	    "Démarrez vos semis en petite terrine dès mars / avril (15-20° nuit et jour)",
-	    	    "dans du terreau à semis, couvrez vos graines de 0,5 cm, tassez doucement et maintenez humide.",
-	    	    "Repiquer vos semis lorsqu'ils font 5 cm, dans des godets avec du terreau,",
-	    	    "1/3 de fumier ou du compost, enterrez jusqu'aux premières feuilles.",
+	    	    "Démarrez vos semis en terrine dès mars / avril (15-20° nuit et jour).",
+	    	    "Utilisez un terreau spécial semis, couvrez les graines de 0,5 cm, tassez légèrement et maintenez humide.",
+	    	    "Repiquer à 5 cm dans des godets avec du terreau enrichi (1/3 compost ou fumier).",
 	    	    "",
-	    	    "Après les Saints de glaces :",
-	    	    "Plantez vos pieds de tomates dès qu'ils auront atteint 15 cm,",
-	    	    "enterrez-les jusqu'aux premières feuilles en pleine terre avec un trou contenant",
-	    	    "du fumier, du compost ou quelques feuilles d'ortie si besoin.",
-	    	    "Installez vos tuteurs espacés de 70 cm.",
-	    	    "Arrosez abondamment les 3 premiers jours,",
-	    	    "arrêtez les 15 jours suivants puis arrosez régulièrement.",
+	    	    "Plantation :",
+	    	    "Après les Saints de glaces, plantez en pleine terre jusqu'aux premières feuilles.",
+	    	    "Ajoutez du compost ou des feuilles d'ortie au fond du trou.",
+	    	    "Espacez les plants de 50 cm et les rangs de 70 cm.",
+	    	    "Tuteurez dès la plantation avec des tuteurs solides.",
 	    	    "",
-	    	    "Pensez à pailler ! ainsi vous garderez beaucoup plus facilement l'humidité dans le sol."
+	    	    "Entretien :",
+	    	    "Arrosez abondamment les 3 premiers jours, puis modérément sans mouiller le feuillage.",
+	    	    "Paillez le sol pour conserver l'humidité et limiter les mauvaises herbes.",
+	    	    "Supprimez les gourmands (pousses entre tige principale et feuilles) pour favoriser la fructification.",
+	    	    "Fertilisez tous les 15 jours avec un engrais riche en potassium.",
+	    	    "",
+	    	    "Prévention :",
+	    	    "Évitez les arrosages en soirée pour limiter les maladies fongiques.",
+	    	    "Surveillez les signes de mildiou (taches brunes sur feuilles et fruits).",
+	    	    "Utilisez des purins naturels (ortie, prêle) en prévention.",
+	    	    "",
+	    	    "Récolte :",
+	    	    "Récoltez les tomates bien rouges, de préférence le matin.",
+	    	    "Conservez-les à température ambiante, pas au réfrigérateur.",
+	    	    "",
+	    	    "Pensez à pailler ! Vous garderez plus facilement l'humidité et protégerez vos plants."
 	    	};
+
 	    contentPanel.setLayout(new BorderLayout(0, 0));
 	    JScrollPane scrollPane = new JScrollPane();
 	    contentPanel.add(scrollPane);
 	    
 	    	    JList<String> list = new JList<>(conseils);
+	    	    list.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	    	    scrollPane.setViewportView(list);
 
 	    JPanel buttonPane = new JPanel();
