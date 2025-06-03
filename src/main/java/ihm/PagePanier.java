@@ -18,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import modèle.Panier;
 import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PagePanier extends JDialog {
 
@@ -30,7 +32,7 @@ public class PagePanier extends JDialog {
 	private JTextField textField_3;
 	private JTextField textField_4;
 
-	private JTextField txtLeCacaEst;
+	private JTextField txtTotalCalculée;
 	private JTextField txtRechercherUnArticle;
 
 	public PagePanier() {
@@ -122,13 +124,13 @@ public class PagePanier extends JDialog {
 		panel_5.add(txtTotal);
 		txtTotal.setColumns(10);
 
-		txtLeCacaEst = new JTextField();
-		txtLeCacaEst.setForeground(new Color(0, 83, 0));
-		txtLeCacaEst.setFont(new Font("Roboto", Font.BOLD, 14));
-		txtLeCacaEst.setBackground(new Color(217, 255, 217));
-		txtLeCacaEst.setEditable(false);
-		panel_5.add(txtLeCacaEst);
-		txtLeCacaEst.setColumns(10);
+		txtTotalCalculée = new JTextField();
+		txtTotalCalculée.setForeground(new Color(0, 83, 0));
+		txtTotalCalculée.setFont(new Font("Roboto", Font.BOLD, 14));
+		txtTotalCalculée.setBackground(new Color(217, 255, 217));
+		txtTotalCalculée.setEditable(false);
+		panel_5.add(txtTotalCalculée);
+		txtTotalCalculée.setColumns(10);
 
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, BorderLayout.SOUTH);
@@ -142,14 +144,15 @@ public class PagePanier extends JDialog {
 		panel_4.add(ButtonContinuerAchats);
 
 		JButton ButtonValiderPanier = new JButton("Valider le panier");
-		ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_4.add(ButtonValiderPanier);
-		ButtonValiderPanier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		ButtonValiderPanier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
 				Facture facture = new Facture();
-		        facture.setVisible(true);
+				facture.setVisible(true);
 			}
 		});
+		ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_4.add(ButtonValiderPanier);
 
 		ButtonViderPanier.addActionListener(new ActionListener() {
 			@Override
@@ -167,7 +170,7 @@ public class PagePanier extends JDialog {
 	private void clearCart() {
 		textField_3.setText("");
 		textField_4.setText("");
-		txtLeCacaEst.setText("");
+		txtTotalCalculée.setText("");
 		JOptionPane.showMessageDialog(this, "Le panier est maintenant vide.");
 	}
 }
