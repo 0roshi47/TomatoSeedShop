@@ -103,21 +103,12 @@ public class DetailsTomate extends JDialog {
         
         JPanel panelStock = new JPanel();
         panelGauche.add(panelStock, BorderLayout.SOUTH);
-        
-                JLabel lblDisponibilite = new JLabel("En stock");
-                lblDisponibilite.setForeground(new Color(0, 128, 0));
-                if(tomate.getStock() == 0) {
-                	lblDisponibilite.setText("En rupture");
-                	lblDisponibilite.setForeground(new Color(128, 0, 0));
-                	btnAjouter.setEnabled(false);
-                }
-                panelStock.add(lblDisponibilite);
                 
-                				JComboBox<String> produitsSimilaires = new JComboBox<>();
-                				produitsSimilaires.setModel(new DefaultComboBoxModel(new String[] {"Produits similaires", "Fraise", "Aubergine", "Fruit du dragon"}));
-                                //JComboBox<String> produitsSimilaires = new JComboBox<>(tomate.getTomatesApparentées().toArray(new String[0]));
-                                panelStock.add(produitsSimilaires);
-                                produitsSimilaires.setToolTipText("Produits similaires");
+        JComboBox<String> produitsSimilaires = new JComboBox<>();
+        produitsSimilaires.setModel(new DefaultComboBoxModel(new String[] {"Produits similaires", "Fraise", "Aubergine", "Fruit du dragon"}));
+        //JComboBox<String> produitsSimilaires = new JComboBox<>(tomate.getTomatesApparentées().toArray(new String[0]));
+        panelStock.add(produitsSimilaires);
+        produitsSimilaires.setToolTipText("Produits similaires");
 
         JPanel panelDroite = new JPanel();
         panelHaut.add(panelDroite);
@@ -175,5 +166,15 @@ public class DetailsTomate extends JDialog {
         spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, 20, 1));
         //spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, tomate.getStock(), 1));
         panelQuantitePrix.add(spinnerQuantite);
+        
+        JLabel lblDisponibilite = new JLabel("En stock");
+        lblDisponibilite.setForeground(new Color(0, 128, 0));
+        if(tomate.getStock() == 0) {
+        	lblDisponibilite.setText("En rupture");
+        	lblDisponibilite.setForeground(new Color(128, 0, 0));
+         	btnAjouter.setEnabled(false);
+         	spinnerQuantite.setEnabled(false);
+        }
+        panelStock.add(lblDisponibilite);
     }
 }
