@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,7 +33,7 @@ public class PagePanier extends JDialog {
 	private JTextField txtLeCacaEst;
 	private JTextField txtRechercherUnArticle;
 
-	public PagePanier(Panier panier) {
+	public PagePanier() {
 		setModal(true); 
 		setTitle("Votre panier");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -147,6 +146,8 @@ public class PagePanier extends JDialog {
 		panel_4.add(ButtonValiderPanier);
 		ButtonValiderPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Facture facture = new Facture(accueil.getPanier());
+		        facture.setVisible(true);
 			}
 		});
 
@@ -163,9 +164,7 @@ public class PagePanier extends JDialog {
 		});
 	}
 
-	// Method to clear the cart
 	private void clearCart() {
-		// Update the relevant fields to reflect an empty cart
 		textField_3.setText("");
 		textField_4.setText("");
 		txtLeCacaEst.setText("");
