@@ -37,7 +37,7 @@ public class accueil extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JScrollPane listeTomates;
-	private Panier panier;
+	private static Panier panier;
 	
 	/**
 	 * Launch the application.
@@ -144,8 +144,8 @@ public class accueil extends JFrame {
 		listeTomates.setViewportView(listeNoms);
 	}
 	
-	public Panier getPanier() {
-		return this.panier;
+	public static Panier getPanier() {
+		return panier;
 	}
 
 }
