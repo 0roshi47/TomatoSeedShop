@@ -28,7 +28,7 @@ public class Facture extends JFrame {
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
         JLabel titleLabel = new JLabel("Votre facture", JLabel.CENTER);
-        titleLabel.setIcon(new ImageIcon("C:\\Users\\urami\\OneDrive\\Documents\\GitHub\\facture1.png"));
+        titleLabel.setIcon(new ImageIcon(getClass().getResource("/images/ProjectImages/PetitPanier3.png")));
         titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         titleLabel.setForeground(new Color(34, 139, 34));
         titlePanel.add(titleLabel, BorderLayout.NORTH);
@@ -65,7 +65,7 @@ public class Facture extends JFrame {
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         // Generate the invoice
-        genererFacture(nom, prenom, adresse1, adresse2, codePostal, ville, telephone, email);
+        //genererFacture(nom, prenom, adresse1, adresse2, codePostal, ville, telephone, email);
     }
 
     private void genererFacture(String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String telephone, String email) {
