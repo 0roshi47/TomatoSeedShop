@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -163,9 +162,7 @@ public class PagePanier extends JDialog {
 		});
 	}
 
-	// Method to clear the cart
 	private void clearCart() {
-		// Update the relevant fields to reflect an empty cart
 		textField_3.setText("");
 		textField_4.setText("");
 		txtLeCacaEst.setText("");

@@ -21,9 +21,6 @@ public class DetailsTomate extends JDialog {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
-    /**
-     * Create the dialog.
-     */
     public DetailsTomate(Panier panier) {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Détail de la tomate");
