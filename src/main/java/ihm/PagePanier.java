@@ -141,14 +141,20 @@ public class PagePanier extends JDialog {
 		panel_4.add(ButtonViderPanier);
 
 		JButton ButtonContinuerAchats = new JButton("Continuer les achats");
+		ButtonContinuerAchats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		panel_4.add(ButtonContinuerAchats);
 
 		JButton ButtonValiderPanier = new JButton("Valider le panier");
 		ButtonValiderPanier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				Facture facture = new Facture();
-				facture.setVisible(true);
+				Coordonnées coordonnées = new Coordonnées();
+		        coordonnées.setModal(true);
+				coordonnées.setVisible(true);
 			}
 		});
 		ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -162,6 +168,7 @@ public class PagePanier extends JDialog {
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (response == JOptionPane.YES_OPTION) {
 					clearCart();
+					dispose();
 				}
 			}
 		});
