@@ -15,13 +15,27 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import modèle.Panier;
+import modèle.Tomate;
+
+import javax.swing.border.TitledBorder;
+import javax.swing.JTextField;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JSpinner;
+import javax.swing.border.EtchedBorder;
 
 public class DetailsTomate extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
+    private JTextField textField;
+    private JTextField textField_1;
 
-    public DetailsTomate(Panier panier) {
+    public DetailsTomate(Tomate tomate) {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Détail de la tomate");
         setBounds(100, 100, 450, 316);
@@ -46,25 +60,23 @@ public class DetailsTomate extends JDialog {
         JButton btnAnnuler = new JButton("Annuler");
         panelButtons.add(btnAnnuler);
 
-        JPanel panel = new JPanel();
-        contentPane.add(panel, BorderLayout.CENTER);
-        panel.setLayout(new GridLayout(0, 2, 0, 0));
+        JPanel panelHaut = new JPanel();
+        contentPane.add(panelHaut, BorderLayout.CENTER);
+        panelHaut.setLayout(new GridLayout(0, 2, 0, 0));
 
         JPanel panelGauche = new JPanel();
-        panel.add(panelGauche);
+        panelHaut.add(panelGauche);
         panelGauche.setLayout(new BorderLayout(0, 0));
 
-        JPanel panel_1 = new JPanel();
-        panelGauche.add(panel_1, BorderLayout.NORTH);
-        panel_1.setLayout(new BorderLayout(0, 0));
-
-        JLabel lblDésignation = new JLabel("Tomates de test");
-        panel_1.add(lblDésignation, BorderLayout.NORTH);
+        JPanel panelImage = new JPanel();
+        panelImage.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Nom de la tomate", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 0)));
+        panelGauche.add(panelImage, BorderLayout.NORTH);
+        panelImage.setLayout(new BorderLayout(0, 0));
 
         JLabel lblImage = new JLabel("");
         ImageIcon image = new ImageIcon(getClass().getResource("/images/Tomates200x200/ananas-2-scaled.jpg"));
         lblImage.setIcon(image);
-        panel_1.add(lblImage, BorderLayout.CENTER);
+        panelImage.add(lblImage, BorderLayout.CENTER);
 
         JComboBox<String> produitsSimilaires = new JComboBox<>();
         produitsSimilaires.setToolTipText("");
@@ -75,14 +87,42 @@ public class DetailsTomate extends JDialog {
         panelGauche.add(lblDisponibilite, BorderLayout.CENTER);
 
         JPanel panelDroite = new JPanel();
-        panel.add(panelDroite);
+        panelHaut.add(panelDroite);
         panelDroite.setLayout(new BorderLayout(0, 0));
         
         JPanel panelDescription = new JPanel();
-        panelDroite.add(panelDescription, BorderLayout.NORTH);
-        panelDescription.setLayout(new BorderLayout(0, 0));
+        panelDescription.setBorder(new TitledBorder(null, "Description", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 0)));
+        panelDroite.add(panelDescription);
+        panelDescription.setLayout(new BoxLayout(panelDescription, BoxLayout.X_AXIS));
         
-        JTextArea textArea = new JTextArea();
-        panelDescription.add(textArea);
+        JTextArea textDescription = new JTextArea();
+        panelDescription.add(textDescription);
+        
+        JPanel panelNbQuantite = new JPanel();
+        panelDroite.add(panelNbQuantite, BorderLayout.SOUTH);
+        panelNbQuantite.setLayout(new BorderLayout(0, 0));
+        
+        JPanel panelNbGraines = new JPanel();
+        panelNbQuantite.add(panelNbGraines, BorderLayout.NORTH);
+        
+        JLabel lblNbGraines = new JLabel("Nombre de graines :");
+        panelNbGraines.add(lblNbGraines);
+        
+        textField = new JTextField();
+        panelNbGraines.add(textField);
+        textField.setColumns(10);
+        
+        JPanel panelQuantite = new JPanel();
+        panelNbQuantite.add(panelQuantite, BorderLayout.CENTER);
+        
+        JLabel lblQuantite = new JLabel("Prix :");
+        panelQuantite.add(lblQuantite);
+        
+        textField_1 = new JTextField();
+        panelQuantite.add(textField_1);
+        textField_1.setColumns(10);
+        
+        JSpinner spinner = new JSpinner();
+        panelQuantite.add(spinner);
     }
 }
