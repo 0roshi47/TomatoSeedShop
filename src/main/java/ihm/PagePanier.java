@@ -149,14 +149,18 @@ public class PagePanier extends JDialog {
 		panel_4.add(ButtonContinuerAchats);
 
 		JButton ButtonValiderPanier = new JButton("Valider le panier");
-		ButtonValiderPanier.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
+		ButtonValiderPanier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Coordonnées coordonnées = new Coordonnées();
-		        coordonnées.setModal(true);
+				coordonnées.setTitle("Ô'Tomates - Coordonnées");
+				coordonnées.setSize(520, 550);
+				coordonnées.setLocationRelativeTo(null);
+				coordonnées.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				coordonnées.setVisible(true);
+				coordonnées.setFocusableWindowState(true);
 			}
 		});
+		
 		ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_4.add(ButtonValiderPanier);
 
