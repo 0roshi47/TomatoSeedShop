@@ -2,7 +2,6 @@ package ihm;
 
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class CoordonneesFrame extends JDialog {
@@ -137,7 +136,7 @@ public class CoordonneesFrame extends JDialog {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            CoordonneesFrame dialog = new CoordonneesFrame(null);
+        	CoordonneesFrame dialog = new CoordonneesFrame(null);
             dialog.setVisible(true);
         });
     }

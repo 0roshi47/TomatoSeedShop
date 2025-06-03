@@ -151,7 +151,7 @@ public class PagePanier extends JDialog {
 		JButton ButtonValiderPanier = new JButton("Valider le panier");
 		ButtonValiderPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Coordonnées coordonnées = new Coordonnées();
+				CoordonneesFrame coordonnées = new CoordonneesFrame(null);
 				coordonnées.setModal(true);
 				coordonnées.setVisible(true);
 				coordonnées.setFocusableWindowState(true);
