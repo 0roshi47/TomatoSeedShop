@@ -1,17 +1,15 @@
 package ihm;
 
-import java.awt.EventQueue;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class CoordonneesFrame extends JFrame {
-    public CoordonneesFrame() {
-        setTitle("Ô'Tomates");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+public class CoordonneesFrame extends JDialog {
+    public CoordonneesFrame(JFrame parent) {
+        super(parent, "Ô'Tomates", true);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(520, 550);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
         getContentPane().setLayout(null);
 
         JLabel lblCoordonnees = new JLabel("Vos coordonnées");
@@ -19,7 +17,6 @@ public class CoordonneesFrame extends JFrame {
         lblCoordonnees.setBounds(160, 10, 200, 30);
         getContentPane().add(lblCoordonnees);
 
-        // Champs de saisie
         JLabel lblNom = new JLabel("Nom :");
         lblNom.setBounds(30, 60, 100, 20);
         getContentPane().add(lblNom);
@@ -84,7 +81,6 @@ public class CoordonneesFrame extends JFrame {
         txtMail.setBounds(150, 270, 300, 20);
         getContentPane().add(txtMail);
 
-        // === Panel : Moyen de paiement ===
         JPanel panelPaiement = new JPanel();
         panelPaiement.setForeground(new Color(34, 139, 34));
         panelPaiement.setBorder(BorderFactory.createTitledBorder("Moyen de paiement"));
@@ -109,7 +105,6 @@ public class CoordonneesFrame extends JFrame {
         bgPaiement.add(rdbPaypal);
         bgPaiement.add(rdbCheque);
 
-        // === Panel : Newsletter ===
         JPanel panelNewsletter = new JPanel();
         panelNewsletter.setBorder(BorderFactory.createTitledBorder("Abonnement à notre Newsletter"));
         panelNewsletter.setBounds(30, 380, 420, 60);
@@ -128,7 +123,6 @@ public class CoordonneesFrame extends JFrame {
         bgNewsletter.add(rdbOui);
         bgNewsletter.add(rdbNon);
 
-        // Boutons
         JButton btnOK = new JButton("OK");
         btnOK.setBounds(270, 460, 80, 30);
         getContentPane().add(btnOK);
@@ -136,11 +130,14 @@ public class CoordonneesFrame extends JFrame {
         JButton btnAnnuler = new JButton("Annuler");
         btnAnnuler.setBounds(360, 460, 100, 30);
         getContentPane().add(btnAnnuler);
+
+        btnAnnuler.addActionListener(e -> dispose());
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new CoordonneesFrame().setVisible(true);
+        EventQueue.invokeLater(() -> {
+        	CoordonneesFrame dialog = new CoordonneesFrame(null);
+            dialog.setVisible(true);
         });
     }
 }

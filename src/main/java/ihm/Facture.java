@@ -46,8 +46,6 @@ public class Facture extends JDialog {
 
         facture += String.format("%-30s %-15s %-10s %-10s\n", "Produit", "Prix unitaire", "Quantité", "Prix TTC");
         facture += "-------------------------------------------------------------------\n";
-     
-
-        txtFacture.setText("Tomate Ananas - 250 g          5,10 €          1          5,99      \r\n");
+    
     }
 }

@@ -31,6 +31,8 @@ import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import java.awt.FlowLayout;
+import javax.swing.border.Border;
 
 public class accueil extends JFrame {
 
@@ -38,6 +40,7 @@ public class accueil extends JFrame {
 	private JPanel contentPane;
 	private JScrollPane listeTomates;
 	private static Panier panier;
+	private JPanel filtres;
 	
 	/**
 	 * Launch the application.
@@ -103,20 +106,62 @@ public class accueil extends JFrame {
 		contentPane.add(footer, BorderLayout.SOUTH);
 		footer.setLayout(new BorderLayout(0, 0));
 		
-		JPanel filtres = new JPanel();
-		filtres.setBorder(new LineBorder(new Color(0, 169, 6)));
+		filtres = new JPanel();
+		filtres.setBorder(new LineBorder(new Color(0, 169, 6), 0));
 		footer.add(filtres, BorderLayout.WEST);
-		filtres.setLayout(new BorderLayout(0, 0));
+		filtres.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JComboBox filtreTomate = new JComboBox();
-		filtreTomate.setModel(new DefaultComboBoxModel(new String[] {"Toutes les tomates", "Cerises & Cocktails (16)", "Autres Tomates (47)"}));
-		filtres.add(filtreTomate, BorderLayout.WEST);
+		JPanel panelFiltreTomates = new JPanel();
+		filtres.add(panelFiltreTomates);
+		
+		JLabel imageFiltreTomates = new JLabel("");
+		imageFiltreTomates.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/plusieursTomatesImage.jpg"));
+		originalImage = originalIcon.getImage();
+
+		taille = 50;
+		nouvelleImage = originalImage.getScaledInstance(taille, taille, Image.SCALE_SMOOTH);
+		panelFiltreTomates.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		imageFiltreTomates.setIcon(new ImageIcon(nouvelleImage));
+		panelFiltreTomates.add(imageFiltreTomates);
+		
+		JComboBox filtreTomates = new JComboBox();
+		panelFiltreTomates.add(filtreTomates);
+		filtreTomates.setModel(new DefaultComboBoxModel(new String[] {"Toutes les tomates", "Cerises & Cocktails (16)", "Autres Tomates (47)"}));
+		
+		JPanel panelFiltreCouleurs = new JPanel();
+		filtres.add(panelFiltreCouleurs);
+		panelFiltreCouleurs.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel imageFiltreCouleurs = new JLabel("");
+		originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/palettes.png"));
+		originalImage = originalIcon.getImage();
+		taille = 50;
+		nouvelleImage = originalImage.getScaledInstance(taille, taille, Image.SCALE_SMOOTH);
+		imageFiltreCouleurs.setIcon(new ImageIcon(nouvelleImage));
+		imageFiltreCouleurs.setHorizontalAlignment(SwingConstants.LEFT);
+		panelFiltreCouleurs.add(imageFiltreCouleurs);
 		
 		JComboBox filtreCouleurs = new JComboBox();
+		panelFiltreCouleurs.add(filtreCouleurs);
 		filtreCouleurs.setModel(new DefaultComboBoxModel(new String[] {"Toutes les couleurs", "Bleu", "Vert", "Rouge", "Orange", "Jaune", "Noir", "Multicolore"}));
-		filtres.add(filtreCouleurs, BorderLayout.EAST);
 		
-		JButton conseils = new JButton("New button");
+		JButton conseils = new JButton("");
+		conseils.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConseilCulture coordonnées = new ConseilCulture();
+				coordonnées.setModal(true);
+				coordonnées.setVisible(true);
+				coordonnées.setFocusableWindowState(true);
+			}
+		});
+		originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/plant.png"));
+		originalImage = originalIcon.getImage();
+		taille = 50;
+		nouvelleImage = originalImage.getScaledInstance(taille, taille, Image.SCALE_SMOOTH);
+		conseils.setIcon(new ImageIcon(nouvelleImage));
+		conseils.setHorizontalAlignment(SwingConstants.RIGHT);
 		footer.add(conseils, BorderLayout.EAST);
 		
 		afficherToutesLesTomates();
@@ -148,4 +193,10 @@ public class accueil extends JFrame {
 		return panier;
 	}
 
+	public Border getFiltresBorder() {
+		return filtres.getBorder();
+	}
+	public void setFiltresBorder(Border border) {
+		filtres.setBorder(border);
+	}
 }

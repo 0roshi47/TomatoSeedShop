@@ -48,13 +48,13 @@ public class ConseilCulture extends JDialog {
 	    panel.setLayout(new BorderLayout(0, 0));
 	    
 	    JLabel lblNewLabel = new JLabel("Conseils de culture");
-	    lblNewLabel.setForeground(new Color(255, 0, 0));
+	    lblNewLabel.setForeground(new Color(0, 128, 0));
 	    lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	    lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 	    panel.add(lblNewLabel);
 	    
 	    JTextPane txtpnSemisMarsavril = new JTextPane();
-	    txtpnSemisMarsavril.setForeground(new Color(255, 0, 0));
+	    txtpnSemisMarsavril.setForeground(new Color(0, 128, 0));
 	    txtpnSemisMarsavril.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	    txtpnSemisMarsavril.setEditable(false);
 	    txtpnSemisMarsavril.setText("Semis : mars-avril\r\nRepiquage : après les gelées\r\nRécolte : juillet à septembre, voire octobre");
