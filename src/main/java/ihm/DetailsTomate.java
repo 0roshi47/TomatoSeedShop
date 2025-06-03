@@ -27,6 +27,13 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JSpinner;
 import javax.swing.border.EtchedBorder;
+import javax.swing.SpinnerNumberModel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.SpringLayout;
+import java.awt.CardLayout;
 
 public class DetailsTomate extends JDialog {
 
@@ -35,7 +42,7 @@ public class DetailsTomate extends JDialog {
     private JTextField textField;
     private JTextField textField_1;
 
-    public DetailsTomate(Tomate tomate) {
+    public DetailsTomate(String désignationTomate) {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Détail de la tomate");
         setBounds(100, 100, 450, 316);
@@ -70,21 +77,25 @@ public class DetailsTomate extends JDialog {
 
         JPanel panelImage = new JPanel();
         panelImage.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Nom de la tomate", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 0)));
-        panelGauche.add(panelImage, BorderLayout.NORTH);
-        panelImage.setLayout(new BorderLayout(0, 0));
+        panelGauche.add(panelImage);
 
         JLabel lblImage = new JLabel("");
         ImageIcon image = new ImageIcon(getClass().getResource("/images/Tomates200x200/ananas-2-scaled.jpg"));
+        panelImage.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         lblImage.setIcon(image);
-        panelImage.add(lblImage, BorderLayout.CENTER);
-
-        JComboBox<String> produitsSimilaires = new JComboBox<>();
-        produitsSimilaires.setToolTipText("");
-        produitsSimilaires.setModel(new DefaultComboBoxModel<>(new String[] {"Produits similaires", "Truc", "Bidule", "Machin", "Chose"}));
-        panelGauche.add(produitsSimilaires, BorderLayout.SOUTH);
-
-        JLabel lblDisponibilite = new JLabel("En rupture");
-        panelGauche.add(lblDisponibilite, BorderLayout.CENTER);
+        panelImage.add(lblImage);
+        
+        JPanel panel_1 = new JPanel();
+        panelGauche.add(panel_1, BorderLayout.SOUTH);
+        
+                JLabel lblDisponibilite = new JLabel("En stock");
+                panel_1.add(lblDisponibilite);
+                lblDisponibilite.setForeground(new Color(0, 128, 0));
+                        
+                                JComboBox<String> produitsSimilaires = new JComboBox<>();
+                                panel_1.add(produitsSimilaires);
+                                produitsSimilaires.setToolTipText("");
+                                produitsSimilaires.setModel(new DefaultComboBoxModel<>(new String[] {"Produits similaires", "Truc", "Bidule", "Machin", "Chose"}));
 
         JPanel panelDroite = new JPanel();
         panelHaut.add(panelDroite);
@@ -109,8 +120,9 @@ public class DetailsTomate extends JDialog {
         panelNbGraines.add(lblNbGraines);
         
         textField = new JTextField();
+        textField.setEditable(false);
         panelNbGraines.add(textField);
-        textField.setColumns(10);
+        textField.setColumns(3);
         
         JPanel panelQuantite = new JPanel();
         panelNbQuantite.add(panelQuantite, BorderLayout.CENTER);
@@ -119,10 +131,12 @@ public class DetailsTomate extends JDialog {
         panelQuantite.add(lblQuantite);
         
         textField_1 = new JTextField();
+        textField_1.setEditable(false);
         panelQuantite.add(textField_1);
-        textField_1.setColumns(10);
+        textField_1.setColumns(3);
         
         JSpinner spinner = new JSpinner();
+        spinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
         panelQuantite.add(spinner);
     }
 }
