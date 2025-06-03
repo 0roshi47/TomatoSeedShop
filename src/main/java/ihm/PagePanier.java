@@ -146,7 +146,7 @@ public class PagePanier extends JDialog {
 		panel_4.add(ButtonValiderPanier);
 		ButtonValiderPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Facture facture = new Facture(accueil.getPanier());
+				Facture facture = new Facture();
 		        facture.setVisible(true);
 			}
 		});

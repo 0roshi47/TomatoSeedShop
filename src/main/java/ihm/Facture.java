@@ -8,8 +8,17 @@ import java.util.TimeZone;
 
 public class Facture extends JFrame {
     private JTextArea txtFacture;
-
-    public Facture(String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String telephone, String email) {
+    
+    private String nom;
+    private String prenom;
+    private String adresse1; 
+    private String adresse2;
+    private String codePostal;
+    private String ville;
+    private String telephone;
+    private String email;
+    
+    public Facture() {
         setTitle("Votre facture");
         setSize(700, 800);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -85,8 +94,4 @@ public class Facture extends JFrame {
         txtFacture.setText("Tomate Ananas - 250 g          5,10 €          1          5,99      \r\n");
     }
 
-    public static void main(String[] args) {
-        // This main method is for testing purposes
-        SwingUtilities.invokeLater(() -> new Facture("Aristide", "BRIAND", "11 rue des lois", "", "31000", "Toulouse", "0562258808", "briand@iut-tlse3.fr").setVisible(true));
-    }
 }
