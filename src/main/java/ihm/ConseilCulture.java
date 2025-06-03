@@ -11,6 +11,10 @@ import javax.swing.JList;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ConseilCulture extends JDialog {
 
@@ -36,47 +40,57 @@ public class ConseilCulture extends JDialog {
 	public ConseilCulture() {
 	    setBounds(100, 100, 500, 400);
 	    getContentPane().setLayout(new BorderLayout());
+	    
+	    JPanel panel = new JPanel();
+	    getContentPane().add(panel, BorderLayout.NORTH);
+	    panel.setLayout(new BorderLayout(0, 0));
+	    
+	    JLabel lblNewLabel = new JLabel("Conseils de culture");
+	    lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+	    lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+	    panel.add(lblNewLabel);
+	    
+	    JLabel lblNewLabel_1 = new JLabel("test");
+	    lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+	    panel.add(lblNewLabel_1, BorderLayout.SOUTH);
 	    contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 	    getContentPane().add(contentPanel, BorderLayout.CENTER);
 	    String[] conseils = {
-	        "Conseils de culture",
-	        "",
-	        "Semis : mars-avril",
-	        "Repiquage : après les gelées",
-	        "Récolte : juillet à septembre, voire octobre",
-	        "",
-	        "Semis :",
-	        "Démarrez vos semis en terrine dès mars / avril...",
-	        "Repiquer à 5 cm dans des godets...",
-	        "",
-	        "Après les Saints de glaces, planter à 15 cm...",
-	        "Espacer de 50 cm, tuteurer à 70 cm...",
-	        "",
-	        "Arrosage abondant au début, sans mouiller le feuillage.",
-	        "",
-	        "Pensez à pailler !"
-	    };
-	    contentPanel.setLayout(null);
-
-	    JList<String> list = new JList<>(conseils);
-	    JScrollPane scrollPane = new JScrollPane(list);
-	    scrollPane.setBounds(10, 132, 466, 190);
-	    contentPanel.add(scrollPane); 
+	    	    "Semis :",
+	    	    "Démarrez vos semis en petite terrine dès mars / avril (15-20° nuit et jour)",
+	    	    "dans du terreau à semis, couvrez vos graines de 0,5 cm, tassez doucement et maintenez humide.",
+	    	    "Repiquer vos semis lorsqu'ils font 5 cm, dans des godets avec du terreau,",
+	    	    "1/3 de fumier ou du compost, enterrez jusqu'aux premières feuilles.",
+	    	    "",
+	    	    "Après les Saints de glaces :",
+	    	    "Plantez vos pieds de tomates dès qu'ils auront atteint 15 cm,",
+	    	    "enterrez-les jusqu'aux premières feuilles en pleine terre avec un trou contenant",
+	    	    "du fumier, du compost ou quelques feuilles d'ortie si besoin.",
+	    	    "Installez vos tuteurs espacés de 70 cm.",
+	    	    "Arrosez abondamment les 3 premiers jours,",
+	    	    "arrêtez les 15 jours suivants puis arrosez régulièrement.",
+	    	    "",
+	    	    "Pensez à pailler ! ainsi vous garderez beaucoup plus facilement..."
+	    	};
+	    contentPanel.setLayout(new BorderLayout(0, 0));
+	    JScrollPane scrollPane = new JScrollPane();
+	    contentPanel.add(scrollPane);
 	    
-	    JLabel lblNewLabel = new JLabel("Conseils de ");
-	    lblNewLabel.setBounds(61, 30, 71, 13);
-	    contentPanel.add(lblNewLabel);
+	    	    JList<String> list = new JList<>(conseils);
+	    	    scrollPane.setViewportView(list);
 
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 	    JButton okButton = new JButton("OK");
+	    okButton.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		dispose();
+	    	}
+	    });
 	    okButton.setActionCommand("OK");
 	    buttonPane.add(okButton);
-
-	    JButton cancelButton = new JButton("Cancel");
-	    cancelButton.setActionCommand("Cancel");
-	    buttonPane.add(cancelButton);
+	    
 	}
 }
