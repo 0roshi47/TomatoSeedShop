@@ -36,7 +36,7 @@ public class accueil extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JScrollPane scrollPane;
+	private JScrollPane listeTomates;
 	private Panier panier;
 	
 	/**
@@ -47,6 +47,7 @@ public class accueil extends JFrame {
 			public void run() {
 				try {
 					accueil frame = new accueil();
+	                frame.setSize(800, 600);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -95,8 +96,8 @@ public class accueil extends JFrame {
 
 		header.add(btnPanier, BorderLayout.EAST);
 		
-		scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		listeTomates = new JScrollPane();
+		contentPane.add(listeTomates, BorderLayout.CENTER);
 		
 		JPanel footer = new JPanel();
 		contentPane.add(footer, BorderLayout.SOUTH);
@@ -115,8 +116,8 @@ public class accueil extends JFrame {
 		filtreCouleurs.setModel(new DefaultComboBoxModel(new String[] {"Toutes les couleurs", "Bleu", "Vert", "Rouge", "Orange", "Jaune", "Noir", "Multicolore"}));
 		filtres.add(filtreCouleurs, BorderLayout.EAST);
 		
-		JButton btnNewButton = new JButton("New button");
-		footer.add(btnNewButton, BorderLayout.EAST);
+		JButton conseils = new JButton("New button");
+		footer.add(conseils, BorderLayout.EAST);
 		
 		afficherToutesLesTomates();
 
@@ -135,11 +136,12 @@ public class accueil extends JFrame {
 		listeNoms.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				DetailsTomate pageDetails = new DetailsTomate();
+				String tomateLibellé = listeNoms.getSelectedValue();
+				DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
 				pageDetails.setVisible(true);
 			}
 		});
-		scrollPane.setViewportView(listeNoms);
+		listeTomates.setViewportView(listeNoms);
 	}
 	
 	public Panier getPanier() {
