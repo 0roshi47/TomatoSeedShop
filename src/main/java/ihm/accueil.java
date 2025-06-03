@@ -25,6 +25,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class accueil extends JFrame {
 
@@ -64,19 +70,18 @@ public class accueil extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new BorderLayout(0, 0));
+		JPanel header = new JPanel();
+		contentPane.add(header, BorderLayout.NORTH);
+		header.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblTitre = new JLabel("Nos graines de tomates");
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblTitre, BorderLayout.CENTER);
+		header.add(lblTitre, BorderLayout.CENTER);
 		
 		JButton btnPanier = new JButton("New button");
 		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/PetitPanier3.png"));
 		Image originalImage = originalIcon.getImage();
 
-		// Resize to desired width and height (e.g., 30x30 pixels)
 		int taille = 30;
 		Image nouvelleImage = originalImage.getScaledInstance(taille, taille, Image.SCALE_SMOOTH);
 
@@ -88,10 +93,30 @@ public class accueil extends JFrame {
 		    }
 		});
 
-		panel.add(btnPanier, BorderLayout.EAST);
+		header.add(btnPanier, BorderLayout.EAST);
 		
 		scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
+		
+		JPanel footer = new JPanel();
+		contentPane.add(footer, BorderLayout.SOUTH);
+		footer.setLayout(new BorderLayout(0, 0));
+		
+		JPanel filtres = new JPanel();
+		filtres.setBorder(new LineBorder(new Color(0, 169, 6)));
+		footer.add(filtres, BorderLayout.WEST);
+		filtres.setLayout(new BorderLayout(0, 0));
+		
+		JComboBox filtreTomate = new JComboBox();
+		filtreTomate.setModel(new DefaultComboBoxModel(new String[] {"Toutes les tomates", "Cerises & Cocktails (16)", "Autres Tomates (47)"}));
+		filtres.add(filtreTomate, BorderLayout.WEST);
+		
+		JComboBox filtreCouleurs = new JComboBox();
+		filtreCouleurs.setModel(new DefaultComboBoxModel(new String[] {"Toutes les couleurs", "Bleu", "Vert", "Rouge", "Orange", "Jaune", "Noir", "Multicolore"}));
+		filtres.add(filtreCouleurs, BorderLayout.EAST);
+		
+		JButton btnNewButton = new JButton("New button");
+		footer.add(btnNewButton, BorderLayout.EAST);
 		
 		afficherToutesLesTomates();
 
@@ -107,6 +132,12 @@ public class accueil extends JFrame {
 		}
 		
 		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
+		listeNoms.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				//DetailsTomate pageDetails = new DetailsTomate(accueil.this.panier);
+				//pageDetails.setVisible(true);
+			}
+		});
 		listeNoms.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -115,6 +146,10 @@ public class accueil extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(listeNoms);
+	}
+	
+	public Panier getPanier() {
+		return this.panier;
 	}
 
 }
