@@ -8,8 +8,17 @@ import java.util.TimeZone;
 
 public class Facture extends JFrame {
     private JTextArea txtFacture;
-
-    public Facture(String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String telephone, String email) {
+    
+    private String nom;
+    private String prenom;
+    private String adresse1; 
+    private String adresse2;
+    private String codePostal;
+    private String ville;
+    private String telephone;
+    private String email;
+    
+    public Facture() {
         setTitle("Votre facture");
         setSize(700, 800);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -19,7 +28,7 @@ public class Facture extends JFrame {
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
         JLabel titleLabel = new JLabel("Votre facture", JLabel.CENTER);
-        titleLabel.setIcon(new ImageIcon("C:\\Users\\urami\\OneDrive\\Documents\\GitHub\\facture1.png"));
+        titleLabel.setIcon(new ImageIcon(getClass().getResource("/images/ProjectImages/PetitPanier3.png")));
         titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         titleLabel.setForeground(new Color(34, 139, 34));
         titlePanel.add(titleLabel, BorderLayout.NORTH);
@@ -56,7 +65,7 @@ public class Facture extends JFrame {
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         // Generate the invoice
-        genererFacture(nom, prenom, adresse1, adresse2, codePostal, ville, telephone, email);
+        //genererFacture(nom, prenom, adresse1, adresse2, codePostal, ville, telephone, email);
     }
 
     private void genererFacture(String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String telephone, String email) {
@@ -85,8 +94,4 @@ public class Facture extends JFrame {
         txtFacture.setText("Tomate Ananas - 250 g          5,10 €          1          5,99      \r\n");
     }
 
-    public static void main(String[] args) {
-        // This main method is for testing purposes
-        SwingUtilities.invokeLater(() -> new Facture("Aristide", "BRIAND", "11 rue des lois", "", "31000", "Toulouse", "0562258808", "briand@iut-tlse3.fr").setVisible(true));
-    }
 }
