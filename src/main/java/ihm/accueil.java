@@ -36,7 +36,7 @@ public class accueil extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JScrollPane scrollPane;
+	private JScrollPane listeTomates;
 	private Panier panier;
 	
 	/**
@@ -95,8 +95,8 @@ public class accueil extends JFrame {
 
 		header.add(btnPanier, BorderLayout.EAST);
 		
-		scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		listeTomates = new JScrollPane();
+		contentPane.add(listeTomates, BorderLayout.CENTER);
 		
 		JPanel footer = new JPanel();
 		contentPane.add(footer, BorderLayout.SOUTH);
@@ -132,14 +132,14 @@ public class accueil extends JFrame {
 		}
 		
 		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
-		listeNoms.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				DetailsTomate pageDetails = new DetailsTomate();
+		listeNoms.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String tomateLibellé = listeNoms.getSelectedValue();
+				DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
 				pageDetails.setVisible(true);
 			}
 		});
-		scrollPane.setViewportView(listeNoms);
+		listeTomates.setViewportView(listeNoms);
 	}
 	
 	public Panier getPanier() {
