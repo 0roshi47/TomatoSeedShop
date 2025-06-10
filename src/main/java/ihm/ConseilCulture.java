@@ -101,7 +101,7 @@ public class ConseilCulture extends JDialog {
 	    JScrollPane scrollPane = new JScrollPane();
 	    contentPanel.add(scrollPane);
 	    
-	    	    JList<String> list = new JList<>(conseils);
+	    	    JList list = new JList(conseils);
 	    	    list.setFont(new Font("Tahoma", Font.PLAIN, 12));
 	    	    scrollPane.setViewportView(list);
 

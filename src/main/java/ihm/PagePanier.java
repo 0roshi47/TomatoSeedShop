@@ -20,6 +20,8 @@ import modèle.Panier;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JList;
+import javax.swing.ScrollPaneConstants;
 
 public class PagePanier extends JDialog {
 
@@ -63,7 +65,17 @@ public class PagePanier extends JDialog {
 		Title.add(Market_title, BorderLayout.CENTER);
 
 		JScrollPane TomatoList = new JScrollPane();
+		TomatoList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		TomatoList.setToolTipText("");
 		contentPane.add(TomatoList, BorderLayout.CENTER);
+		
+		Panier[] conseils = {
+				accueil.getPanier()
+	    	};
+		
+		JList list = new JList(conseils);
+		list.setToolTipText("zeefsqdfdf");
+		TomatoList.setViewportView(list);
 
 		JPanel BottomPane = new JPanel();
 		contentPane.add(BottomPane, BorderLayout.SOUTH);
