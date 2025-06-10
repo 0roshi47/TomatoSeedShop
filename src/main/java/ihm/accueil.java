@@ -33,6 +33,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.FlowLayout;
 import javax.swing.border.Border;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class accueil extends JFrame {
 
@@ -82,7 +84,7 @@ public class accueil extends JFrame {
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(lblTitre, BorderLayout.CENTER);
 		
-		JButton btnPanier = new JButton("New button");
+		JButton btnPanier = new JButton("0,00€");
 		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/PetitPanier3.png"));
 		Image originalImage = originalIcon.getImage();
 
@@ -144,6 +146,11 @@ public class accueil extends JFrame {
 		panelFiltreCouleurs.add(imageFiltreCouleurs);
 		
 		JComboBox filtreCouleurs = new JComboBox();
+		filtreCouleurs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
 		panelFiltreCouleurs.add(filtreCouleurs);
 		filtreCouleurs.setModel(new DefaultComboBoxModel(new String[] {"Toutes les couleurs", "Bleu", "Vert", "Rouge", "Orange", "Jaune", "Noir", "Multicolore"}));
 		
@@ -151,7 +158,6 @@ public class accueil extends JFrame {
 		conseils.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConseilCulture coordonnées = new ConseilCulture();
-				coordonnées.setModal(true);
 				coordonnées.setVisible(true);
 				coordonnées.setFocusableWindowState(true);
 			}
@@ -193,6 +199,10 @@ public class accueil extends JFrame {
 		return panier;
 	}
 
+	public static void setPanier(Panier p) {
+		accueil.panier = p;
+	}
+	
 	public Border getFiltresBorder() {
 		return filtres.getBorder();
 	}
