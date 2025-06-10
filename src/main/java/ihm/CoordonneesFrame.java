@@ -27,6 +27,7 @@ public class CoordonneesFrame extends JDialog {
         getContentPane().setLayout(null);
 
         JLabel lblCoordonnees = new JLabel("Vos coordonnées");
+        lblCoordonnees.setForeground(new Color(34, 139, 34));
         lblCoordonnees.setFont(new Font("Tahoma", Font.BOLD, 18));
         lblCoordonnees.setBounds(160, 10, 200, 30);
         getContentPane().add(lblCoordonnees);
