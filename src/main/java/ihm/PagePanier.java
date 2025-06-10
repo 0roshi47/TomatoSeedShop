@@ -74,7 +74,7 @@ public class PagePanier extends JDialog {
 	    	};
 		
 		JList list = new JList(conseils);
-		list.setToolTipText("zeefsqdfdf");
+		list.setToolTipText("");
 		TomatoList.setViewportView(list);
 
 		JPanel BottomPane = new JPanel();
@@ -90,8 +90,8 @@ public class PagePanier extends JDialog {
 		panel_3.setLayout(new GridLayout(0, 2, 0, 0));
 
 		txtRechercherUnArticle = new JTextField();
+		txtRechercherUnArticle.setToolTipText("Rechercher un article");
 		panel_3.add(txtRechercherUnArticle);
-		txtRechercherUnArticle.setText("Rechercher un article");
 		txtRechercherUnArticle.setColumns(10);
 
 		JPanel panel_5 = new JPanel();
