@@ -72,7 +72,7 @@ public class PagePanier extends JDialog {
 		contentPane.add(TomatoList, BorderLayout.CENTER);
 		
 		Panier[] conseils = {
-				accueil.getPanier()
+	
 	    	};
 		
 		JList list = new JList(conseils);
