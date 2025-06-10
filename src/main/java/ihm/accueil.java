@@ -14,6 +14,7 @@ import modèle.OutilsBaseDonneesTomates;
 import modèle.Panier;
 import modèle.Tomate;
 import modèle.Tomates;
+import modèle.TypeTomate;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -44,6 +45,8 @@ public class accueil extends JFrame {
 	private JScrollPane listeTomates;
 	private static Panier panier;
 	private JPanel filtres;
+	private JComboBox filtreTomates;
+	private JComboBox filtreCouleurs;
 	
 	/**
 	 * Launch the application.
@@ -129,11 +132,10 @@ public class accueil extends JFrame {
 		imageFiltreTomates.setIcon(new ImageIcon(nouvelleImage));
 		panelFiltreTomates.add(imageFiltreTomates);
 		
-		JComboBox filtreTomates = new JComboBox();
-		filtreTomates.addActionListener(new ActionListener() {
+		this.filtreTomates = new JComboBox();
+		this.filtreTomates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				filtreTomates.getSelectedItem();
-				System.out.println(filtreTomates.getSelectedItem());
+				actualiserListeTomate();
 			}
 		});
 		panelFiltreTomates.add(filtreTomates);
@@ -152,39 +154,14 @@ public class accueil extends JFrame {
 		imageFiltreCouleurs.setHorizontalAlignment(SwingConstants.LEFT);
 		panelFiltreCouleurs.add(imageFiltreCouleurs);
 		
-		JComboBox filtreCouleurs = new JComboBox();
-		filtreCouleurs.addActionListener(new ActionListener() {
+		this.filtreCouleurs = new JComboBox();
+		this.filtreCouleurs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Couleur nouvelleCouleur = Couleur.getCouleur((String) filtreCouleurs.getSelectedItem());
-				if (nouvelleCouleur == null) {
-					accueil.this.afficherToutesLesTomates();
-					return;
-				}
-				Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
-				List<String> noms = new ArrayList<>();
-				
-				for (Tomate tomate : tomates.getTomates()) {
-					if (tomate.getCouleur() == nouvelleCouleur) {						
-						noms.add(tomate.getDésignation());
-					}
-				}
-				
-				JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
-				listeNoms.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						String tomateLibellé = listeNoms.getSelectedValue();
-						System.out.println(tomateLibellé);
-						DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
-						pageDetails.setVisible(true);
-					}
-				});
-				listeTomates.setViewportView(listeNoms);
-				
+				actualiserListeTomate();
 			}
 		});
-		panelFiltreCouleurs.add(filtreCouleurs);
-		filtreCouleurs.setModel(new DefaultComboBoxModel(new String[] {"Toutes les couleurs", "Bleu", "Vert", "Rouge", "Orange", "Jaune", "Noir", "Multicolore"}));
+		panelFiltreCouleurs.add(this.filtreCouleurs);
+		this.filtreCouleurs.setModel(new DefaultComboBoxModel(new String[] {"Toutes les couleurs", "Bleu", "Vert", "Rouge", "Orange", "Jaune", "Noir", "Multicolore"}));
 		
 		JButton conseils = new JButton("");
 		conseils.addActionListener(new ActionListener() {
@@ -241,5 +218,62 @@ public class accueil extends JFrame {
 	}
 	public void setFiltresBorder(Border border) {
 		filtres.setBorder(border);
+	}
+	
+	public void actualiserListeTomate() {
+		Couleur nouvelleCouleur = Couleur.getCouleur((String) this.filtreCouleurs.getSelectedItem());
+		TypeTomate nouveauType = TypeTomate.getTypeTomate((String) this.filtreTomates.getSelectedItem());
+		if (nouvelleCouleur == null && nouveauType == null) {
+			accueil.this.afficherToutesLesTomates();
+			return;
+		}
+		Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
+		List<String> nomsCouleur = new ArrayList<>();
+		
+		for (Tomate tomate : tomates.getTomates()) {
+			if (tomate.getCouleur() == nouvelleCouleur) {						
+				nomsCouleur.add(tomate.getDésignation());
+			}
+		}
+		
+		List<String> nomsType = new ArrayList<>();
+		
+		for (Tomate tomate : tomates.getTomates()) {
+			if (tomate.getType() == nouveauType) {						
+				nomsType.add(tomate.getDésignation());
+			}
+		}
+		
+		List<String> noms = new ArrayList<>();
+
+		if (nouvelleCouleur == null) {
+			for (String nom : nomsType) {
+				noms.add(nom);
+			}
+		}
+		else if (nouveauType == null) {
+			for (String nom : nomsCouleur) {
+				noms.add(nom);
+			}	
+		}
+		else {
+			for (String nom : nomsCouleur) {
+				if (nomsType.contains(nom)) {
+					noms.add(nom);
+				}
+			}			
+		}
+		
+		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
+		listeNoms.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				String tomateLibellé = listeNoms.getSelectedValue();
+				System.out.println(tomateLibellé);
+				DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
+				pageDetails.setVisible(true);
+			}
+		});
+		listeTomates.setViewportView(listeNoms);
 	}
 }

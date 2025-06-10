@@ -46,6 +46,8 @@ import java.awt.Font;
 import javax.swing.DropMode;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 public class DetailsTomate extends JDialog {
 
@@ -108,8 +110,8 @@ public class DetailsTomate extends JDialog {
         JPanel panelStock = new JPanel();
         panelGauche.add(panelStock, BorderLayout.SOUTH);
                 
-        JComboBox<String> produitsSimilaires = new JComboBox<>();
-        produitsSimilaires.setModel(new DefaultComboBoxModel(new String[] {"Produits similaires", "Fraise", "Aubergine", "Fruit du dragon"}));
+        //JComboBox<String> produitsSimilaires = new JComboBox<>(new DefaultComboBoxModel(new String[] {"Produits similaires", "Fraise", "Aubergine", "Fruit du dragon"}));
+        JComboBox<String> produitsSimilaires = new JComboBox<>(new DefaultComboBoxModel(new String[] {"Produits similaires", "Fraise", "Aubergine", "Fruit du dragon"}));
         //JComboBox<String> produitsSimilaires = new JComboBox<>();
         //produitsSimilaires.setModel(new DefaultComboBoxModel(new String[] tomate.getTomatesApparentées()));
         panelStock.add(produitsSimilaires);
@@ -124,7 +126,10 @@ public class DetailsTomate extends JDialog {
         panelDroite.add(panelDescription);
         panelDescription.setLayout(new BoxLayout(panelDescription, BoxLayout.X_AXIS));
         
-        //String texte = "Variété rustique, précoce vigoureuse et productive.\\r\\n\\r\\nSes fruits de 150 à 250 g, très légèrement côtelés, ont une chair fine, juteuse et savoureuse.\\r\\n\\r\\nElles sont délicieuses en salade.";
+        JScrollPane scrollPane = new JScrollPane();
+        panelDescription.add(scrollPane);
+        
+        //String texte = "Variété rustique, précoce vigoureuse et productive.\\r\\n\\r\\nSes fruits de 150 à 250 g, très légèrement côtelés, ont une chair fine, juteuse et savoureuse.\\r\\n\\r\\nElles sont délicieuses en salade.Variété rustique, précoce vigoureuse et productive.\\\\r\\\\n\\\\r\\\\nSes fruits de 150 à 250 g, très légèrement côtelés, ont une chair fine, juteuse et savoureuse.\\\\r\\\\n\\\\r\\\\nElles sont délicieuses en salade.Variété rustique, précoce vigoureuse et productive.\\\\r\\\\n\\\\r\\\\nSes fruits de 150 à 250 g, très légèrement côtelés, ont une chair fine, juteuse et savoureuse.\\\\r\\\\n\\\\r\\\\nElles sont délicieuses en salade.Variété rustique, précoce vigoureuse et productive.\\\\r\\\\n\\\\r\\\\nSes fruits de 150 à 250 g, très légèrement côtelés, ont une chair fine, juteuse et savoureuse.\\\\r\\\\n\\\\r\\\\nElles sont délicieuses en salade.";
         String texte = tomate.getDescription();
         texte = texte.replace("\\r\\n\\r\\n", "\n\n");
         JTextArea textDescription = new JTextArea(texte);
@@ -135,7 +140,8 @@ public class DetailsTomate extends JDialog {
         textDescription.setColumns(1);
         textDescription.setEditable(false);
         textDescription.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        panelDescription.add(textDescription);
+        scrollPane.setViewportView(textDescription);
+        
         
         JPanel panelNbQuantite = new JPanel();
         panelDroite.add(panelNbQuantite, BorderLayout.SOUTH);
@@ -148,7 +154,7 @@ public class DetailsTomate extends JDialog {
         panelNbGraines.add(lblNbGraines);
         
         textNbGraines = new JTextField();
-        //textNbGraines.setText(String.valueOf(10));
+        textNbGraines.setText(String.valueOf(10));
         textNbGraines.setText(String.valueOf(tomate.getNbGrainesParSachet()));
         textNbGraines.setEditable(false);
         panelNbGraines.add(textNbGraines);
@@ -169,7 +175,7 @@ public class DetailsTomate extends JDialog {
         
         JSpinner spinnerQuantite = new JSpinner();
         //spinnerQuantite.setModel(new SpinnerNumberModel(1, 1, 20, 1));
-        spinnerQuantite.setModel(new SpinnerNumberModel(1, 1, tomate.getStock(), 1));
+        spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, tomate.getStock(), 1));
         panelQuantitePrix.add(spinnerQuantite);
         
         JButton btnAjouter = new JButton("Ajouter au panier");
@@ -178,8 +184,6 @@ public class DetailsTomate extends JDialog {
         	@Override
         	public void mouseClicked(MouseEvent arg0) {
         		Panier panier = accueil.getPanier();
-        		System.out.println(spinnerQuantite.getValue());
-        		System.out.println(tomate.toString());
         		panier.ajouterTomate(tomate, (int) spinnerQuantite.getValue());
         		accueil.setPanier(panier);
         		dispose();
