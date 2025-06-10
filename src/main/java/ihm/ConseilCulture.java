@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Color;
+import javax.swing.JTextArea;
 
 public class ConseilCulture extends JDialog {
 
@@ -61,49 +62,44 @@ public class ConseilCulture extends JDialog {
 	    panel.add(txtpnSemisMarsavril, BorderLayout.SOUTH);
 	    contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 	    getContentPane().add(contentPanel, BorderLayout.CENTER);
-	    String[] conseils = {
-	    	    "Conseils de culture",
-	    	    "",
-	    	    "Semis : mars-avril",
-	    	    "Repiquage : après les gelées",
-	    	    "Récolte : juillet à septembre, voire octobre",
-	    	    "",
-	    	    "Semis :",
-	    	    "Démarrez vos semis en terrine dès mars / avril (15-20° nuit et jour).",
-	    	    "Utilisez un terreau spécial semis, couvrez les graines de 0,5 cm, tassez légèrement et maintenez humide.",
-	    	    "Repiquer à 5 cm dans des godets avec du terreau enrichi (1/3 compost ou fumier).",
-	    	    "",
-	    	    "Plantation :",
-	    	    "Après les Saints de glaces, plantez en pleine terre jusqu'aux premières feuilles.",
-	    	    "Ajoutez du compost ou des feuilles d'ortie au fond du trou.",
-	    	    "Espacez les plants de 50 cm et les rangs de 70 cm.",
-	    	    "Tuteurez dès la plantation avec des tuteurs solides.",
-	    	    "",
-	    	    "Entretien :",
-	    	    "Arrosez abondamment les 3 premiers jours, puis modérément sans mouiller le feuillage.",
-	    	    "Paillez le sol pour conserver l'humidité et limiter les mauvaises herbes.",
-	    	    "Supprimez les gourmands (pousses entre tige principale et feuilles) pour favoriser la fructification.",
-	    	    "Fertilisez tous les 15 jours avec un engrais riche en potassium.",
-	    	    "",
-	    	    "Prévention :",
-	    	    "Évitez les arrosages en soirée pour limiter les maladies fongiques.",
-	    	    "Surveillez les signes de mildiou (taches brunes sur feuilles et fruits).",
-	    	    "Utilisez des purins naturels (ortie, prêle) en prévention.",
-	    	    "",
-	    	    "Récolte :",
-	    	    "Récoltez les tomates bien rouges, de préférence le matin.",
-	    	    "Conservez-les à température ambiante, pas au réfrigérateur.",
-	    	    "",
-	    	    "Pensez à pailler ! Vous garderez plus facilement l'humidité et protégerez vos plants."
-	    	};
+
 
 	    contentPanel.setLayout(new BorderLayout(0, 0));
 	    JScrollPane scrollPane = new JScrollPane();
 	    contentPanel.add(scrollPane);
 	    
-	    	    JList list = new JList(conseils);
-	    	    list.setFont(new Font("Tahoma", Font.PLAIN, 12));
-	    	    scrollPane.setViewportView(list);
+	    JTextArea txtrEqdzs = new JTextArea();
+	    txtrEqdzs.setText("Conseils de culture\n\n"+
+	    	    "Semis : mars-avril\n"+
+	    	    "Repiquage : après les gelées\n"+
+	    	    "Récolte : juillet à septembre, voire octobre\n\n"+
+	    	    "Semis :\n"+
+	    	    "Démarrez vos semis en terrine dès mars / avril (15-20° nuit et jour).\n"+
+	    	    "Utilisez un terreau spécial semis, couvrez les graines de 0,5 cm, tassez légèrement et maintenez humide.\n"+
+	    	    "Repiquer à 5 cm dans des godets avec du terreau enrichi (1/3 compost ou fumier).\n\n"+
+	    	    "Plantation :\n"+
+	    	    "Après les Saints de glaces, plantez en pleine terre jusqu'aux premières feuilles.\n"+
+	    	    "Ajoutez du compost ou des feuilles d'ortie au fond du trou.\n"+
+	    	    "Espacez les plants de 50 cm et les rangs de 70 cm.\n"+
+	    	    "Tuteurez dès la plantation avec des tuteurs solides.\n\n"+
+	    	    "Entretien :\n"+
+	    	    "Arrosez abondamment les 3 premiers jours, puis modérément sans mouiller le feuillage.\n"+
+	    	    "Paillez le sol pour conserver l'humidité et limiter les mauvaises herbes.\n"+
+	    	    "Supprimez les gourmands (pousses entre tige principale et feuilles) pour favoriser la fructification.\n"+
+	    	    "Fertilisez tous les 15 jours avec un engrais riche en potassium.\n"+
+	    	    "Prévention :\n"+
+	    	    "Évitez les arrosages en soirée pour limiter les maladies fongiques.\n"+
+	    	    "Surveillez les signes de mildiou (taches brunes sur feuilles et fruits).\n"+
+	    	    "Utilisez des purins naturels (ortie, prêle) en prévention.\n\n"+
+	    	    "Récolte :\n"+
+	    	    "Récoltez les tomates bien rouges, de préférence le matin.\n"+
+	    	    "Conservez-les à température ambiante, pas au réfrigérateur.\n\n"+
+	    	    "Pensez à pailler ! Vous garderez plus facilement l'humidité et protégerez vos plants.\n"
+	    	    );
+	    txtrEqdzs.setEditable(false);
+	    txtrEqdzs.setWrapStyleWord(true);
+	    txtrEqdzs.setLineWrap(true);
+	    scrollPane.setViewportView(txtrEqdzs);
 
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
