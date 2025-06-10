@@ -1,5 +1,6 @@
 package modèle;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class Panier {
 	
 	public Panier() {
 		this.tomates = new Tomates(); //un nouveau panier est considéré comme vide
+		this.quantité = new ArrayList<>();
 	}
 	
 	public float total() {
@@ -21,11 +23,11 @@ public class Panier {
 		return resultat;
 	}
 	
-	public void ajouterTomate(Tomate tomate, int quantité) {
+	public void ajouterTomate(Tomate tomate, int nouvelleQuantité) {
 		List<Tomate> nouvelleTomate = new LinkedList<Tomate>();
         nouvelleTomate.add(tomate);
 		this.tomates.addTomates(nouvelleTomate);
-		this.quantité.add(quantité);
+		this.quantité.add(nouvelleQuantité);
 	}
 	
 }

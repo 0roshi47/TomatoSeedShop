@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import modèle.Couleur;
 import modèle.OutilsBaseDonneesTomates;
 import modèle.Panier;
 import modèle.Tomate;
@@ -129,6 +130,12 @@ public class accueil extends JFrame {
 		panelFiltreTomates.add(imageFiltreTomates);
 		
 		JComboBox filtreTomates = new JComboBox();
+		filtreTomates.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				filtreTomates.getSelectedItem();
+				System.out.println(filtreTomates.getSelectedItem());
+			}
+		});
 		panelFiltreTomates.add(filtreTomates);
 		filtreTomates.setModel(new DefaultComboBoxModel(new String[] {"Toutes les tomates", "Cerises & Cocktails (16)", "Autres Tomates (47)"}));
 		
@@ -146,9 +153,34 @@ public class accueil extends JFrame {
 		panelFiltreCouleurs.add(imageFiltreCouleurs);
 		
 		JComboBox filtreCouleurs = new JComboBox();
-		filtreCouleurs.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		filtreCouleurs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Couleur nouvelleCouleur = Couleur.getCouleur((String) filtreCouleurs.getSelectedItem());
+				if (nouvelleCouleur == null) {
+					accueil.this.afficherToutesLesTomates();
+					return;
+				}
+				Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
+				List<String> noms = new ArrayList<>();
+				
+				for (Tomate tomate : tomates.getTomates()) {
+					if (tomate.getCouleur() == nouvelleCouleur) {						
+						noms.add(tomate.getDésignation());
+					}
+				}
+				
+				JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
+				listeNoms.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						String tomateLibellé = listeNoms.getSelectedValue();
+						System.out.println(tomateLibellé);
+						DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
+						pageDetails.setVisible(true);
+					}
+				});
+				listeTomates.setViewportView(listeNoms);
+				
 			}
 		});
 		panelFiltreCouleurs.add(filtreCouleurs);
@@ -188,6 +220,7 @@ public class accueil extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				String tomateLibellé = listeNoms.getSelectedValue();
+				System.out.println(tomateLibellé);
 				DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
 				pageDetails.setVisible(true);
 			}
