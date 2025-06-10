@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JList;
 import javax.swing.ScrollPaneConstants;
+import java.awt.SystemColor;
 
 public class PagePanier extends JDialog {
 
@@ -53,6 +54,7 @@ public class PagePanier extends JDialog {
 		contentPane.add(Title, BorderLayout.NORTH);
 
 		JLabel Market_title = new JLabel("VOTRE PANIER");
+		Market_title.setForeground(new Color(0, 128, 0));
 		Market_title.setHorizontalAlignment(SwingConstants.CENTER);
 		Market_title.setFont(new Font("Copperplate Gothic Bold", Font.PLAIN, 30));
 		Title.setLayout(new BorderLayout(0, 0));
@@ -108,7 +110,7 @@ public class PagePanier extends JDialog {
 		textField_3 = new JTextField();
 		textField_3.setFont(new Font("Roboto", Font.BOLD, 10));
 		textField_3.setForeground(new Color(0, 0, 0));
-		textField_3.setBackground(new Color(255, 255, 255));
+		textField_3.setBackground(SystemColor.info);
 		textField_3.setEditable(false);
 		panel_5.add(textField_3);
 		textField_3.setColumns(10);
@@ -123,7 +125,7 @@ public class PagePanier extends JDialog {
 		textField_4 = new JTextField();
 		textField_4.setText("5.50€");
 		textField_4.setFont(new Font("Roboto", Font.BOLD, 10));
-		textField_4.setBackground(new Color(255, 255, 255));
+		textField_4.setBackground(SystemColor.info);
 		textField_4.setEditable(false);
 		panel_5.add(textField_4);
 		textField_4.setColumns(10);
