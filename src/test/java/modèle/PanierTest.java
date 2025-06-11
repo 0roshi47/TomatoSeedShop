@@ -11,11 +11,7 @@ public class PanierTest{
     
     private static Tomates tomates;
     
-    //faut changer ça la aussi ajouter des gets petinents pour les tests (faire aussi fonction vider  dans panier)
-    private static final String TOMATE_ANANAS = "Tomate Ananas";
-    private static final String TOMATE_BRANDYWINE = "Tomate Brandywine";
-    private static final float PRIX_ANANAS = 5.1f;
-    private static final int STOCK_ANANAS = 5;
+    //faut ajouter des gets petinents pour les tests (faire aussi fonction vider  dans panier)
     
     @BeforeClass
     public static void setUp() {
