@@ -101,8 +101,8 @@ public class PagePanier extends JDialog {
 		panel_5.add(txtSoustotal);
 		txtSoustotal.setColumns(10);
 
-		double totalTTC = accueil.getPanier().total();
-		double totalTTCArrondi = Math.round(totalTTC* 100.0) / 100.0;
+		double totalHT = accueil.getPanier().total();
+		double totalHTArrondi = Math.round(totalTTC* 100.0) / 100.0;
 		txtTotalCalculée = new JTextField(totalTTCArrondi + "€");
 		textField_3.setFont(new Font("Roboto", Font.BOLD, 10));
 		textField_3.setForeground(new Color(0, 0, 0));
