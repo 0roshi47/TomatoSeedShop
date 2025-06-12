@@ -182,9 +182,20 @@ public class PagePanier extends JDialog {
 			new Object[][] {
 			},
 			new String[] {
+<<<<<<< Updated upstream
 				"New column", "Total", "Quantit\u00E9", "Produit"
+=======
+				"Photo", "Produit", "Prix", "Quantit\u00E9", "Total"
+>>>>>>> Stashed changes
 			}
-		));
+		) {
+			Class[] columnTypes = new Class[] {
+				Object.class, String.class, Float.class, Integer.class, Float.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
 		this.updateListePanier();
 		scrollPane.setViewportView(tableProduits);
 
