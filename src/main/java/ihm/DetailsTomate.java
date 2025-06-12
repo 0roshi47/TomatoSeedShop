@@ -184,7 +184,6 @@ public class DetailsTomate extends JDialog {
         btnAjouter.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent arg0) {
-        		System.out.println(tomate.getTomatesApparentées());
         		Panier panier = accueil.getPanier();
         		panier.ajouterTomate(tomate, (int) spinnerQuantite.getValue());
         		accueil.setPanier(panier);

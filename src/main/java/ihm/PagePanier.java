@@ -171,15 +171,18 @@ public class PagePanier extends JDialog {
 		ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_4.add(ButtonValiderPanier);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		
 		tableProduits = new JTable();
 		tableProduits.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"New column", "Total", "Quantit\u00E9", "Produit"
+				"Photo", "Produit", "Prix", "Quantité", "Total"
 			}
 		));
-		contentPane.add(tableProduits, BorderLayout.CENTER);
+		scrollPane.setViewportView(tableProduits);
 
 		ButtonViderPanier.addActionListener(new ActionListener() {
 			@Override
