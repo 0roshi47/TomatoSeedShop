@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import modèle.Panier;
+import modèle.Tomate;
 import modèle.Tomates;
 
 import javax.swing.ImageIcon;
@@ -181,6 +182,7 @@ public class PagePanier extends JDialog {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		tableProduits = new JTable();
+		tableProduits.setEnabled(false);
 		tableProduits.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -189,9 +191,11 @@ public class PagePanier extends JDialog {
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Object.class, String.class, String.class, String.class, String.class
+				Object.class, String.class, String.class, Integer.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
+				 if (columnIndex == 0) return ImageIcon.class;
+	                //return super.getColumnClass(column);
 				return columnTypes[columnIndex];
 			}
 		});
@@ -225,7 +229,9 @@ public class PagePanier extends JDialog {
 		Object[] newRow;
 		
 		for (int i = 0; i < quantité.size(); i++) {
-			newRow = new Object[] {"zizi", tomates.getTomate(i).getDésignation(), "zizi", "zizi"};
+			Tomate tomate = tomates.getTomate(i);
+			ImageIcon imageTomate = new ImageIcon(getClass().getResource("/images/Tomates40x40/" + tomate.getNomImage() + ".jpg"));
+			newRow = new Object[] {imageTomate, tomate.getDésignation(), tomate.getPrixTTC()+"€", quantité.get(i), accueil.arrondi(tomate.getPrixTTC()*quantité.get(i), 2) +"€"};
 			model.addRow(newRow);
 		}
 		

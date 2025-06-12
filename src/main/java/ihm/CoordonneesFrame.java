@@ -155,6 +155,8 @@ public class CoordonneesFrame extends JDialog {
                 String mail = txtMail.getText();
                 double total = 5.5 + accueil.getPanier().total();
         		double totalArrondi = Math.round(total * 100.0) / 100.0;
+        		double totalHT = accueil.getPanier().total();
+        		double totalArrondiHT = Math.round(totalHT * 100.0) / 100.0;
 
                 String moyenPaiement = "";
                 if (rdbCarte.isSelected()) moyenPaiement = "Carte de crédit";
@@ -164,40 +166,51 @@ public class CoordonneesFrame extends JDialog {
                 String abonnementNewsletter = rdbOui.isSelected() ? "Oui" : "Non";
 
                 String htmlContent = "<html>" +
-                        "<head>" +
-                        "<title>Facture</title>" +
-                        "<style>" +
-                        "body { font-family: 'Segoe UI', sans-serif; background-color: #fff8f0; margin: 0; padding: 40px; color: #3e3e3e; }" +
-                        "h1 { text-align: center; color: #b22222; margin-bottom: 30px; font-size: 32px; }" +
-                        "table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }" +
-                        "td.label { font-weight: bold; background-color: #f0e5d8; padding: 10px; width: 35%; color: #5a2d0c; }" +
-                        "td.value { background-color: #fffdfb; padding: 10px; color: #3e3e3e; }" +
-                        "tr:nth-child(even) td { background-color: #f9f3ee; }" +
-                        ".print-btn { background-color: #b22222; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin: 30px auto 0; display: block; font-weight: bold; }" +
-                        ".print-btn:hover { background-color: #a11c1c; }" +
-                        ".footer { text-align: center; font-size: 12px; color: #888; margin-top: 40px; }" +
-                        "@media print { .print-btn { display: none; } body { padding: 0; background: white; } }" +
-                        "</style>" +
-                        "</head>" +
-                        "<body>" +
-                        "<h1>🍅 Facture</h1>" +
-                        "<table>" +
-                        "<tr><td class='label'>Nom :</td><td class='value'>" + nom + "</td></tr>" +
-                        "<tr><td class='label'>Prénom :</td><td class='value'>" + prenom + "</td></tr>" +
-                        "<tr><td class='label'>Adresse 1 :</td><td class='value'>" + adresse1 + "</td></tr>" +
-                        "<tr><td class='label'>Adresse 2 :</td><td class='value'>" + adresse2 + "</td></tr>" +
-                        "<tr><td class='label'>Code postal :</td><td class='value'>" + codePostal + "</td></tr>" +
-                        "<tr><td class='label'>Ville :</td><td class='value'>" + ville + "</td></tr>" +
-                        "<tr><td class='label'>Téléphone :</td><td class='value'>" + telephone + "</td></tr>" +
-                        "<tr><td class='label'>Mail :</td><td class='value'>" + mail + "</td></tr>" +
-                        "<tr><td class='label'>Moyen de paiement :</td><td class='value'>" + moyenPaiement + "</td></tr>" +
-                        "<tr><td class='label'>Abonnement Newsletter :</td><td class='value'>" + abonnementNewsletter + "</td></tr>" +
-                        "</table>" +
-                        "<tr><td class='label'>total panier TTC:</td><td class='value'>"+totalArrondi + " €"+"</td></tr>"+
-                        "<button class='print-btn' onclick='window.print()'>🖨️ Imprimer la facture</button>" +
-                        "<div class='footer'>Merci pour votre confiance!</div>" +
-                        "</body>" +
-                        "</html>";
+                		"<head>" +
+                		"<title>Facture</title>" +
+                		"<style>" +
+                		"body { font-family: 'Segoe UI', sans-serif; background-color: #fff8f0; margin: 0; padding: 40px; color: #3e3e3e; }" +
+                		"h1 { text-align: center; color: #b22222; margin-bottom: 30px; font-size: 32px; }" +
+                		"h2 { color: #5a2d0c; margin-top: 40px; font-size: 24px; border-bottom: 2px solid #f0e5d8; padding-bottom: 5px; }" +
+                		"table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }" +
+                		"td.label { font-weight: bold; background-color: #f0e5d8; padding: 10px; width: 40%; color: #5a2d0c; }" +
+                		"td.value { background-color: #fffdfb; padding: 10px; color: #3e3e3e; }" +
+                		"tr:nth-child(even) td { background-color: #f9f3ee; }" +
+                		".print-btn { background-color: #b22222; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin: 30px auto 0; display: block; font-weight: bold; }" +
+                		".print-btn:hover { background-color: #a11c1c; }" +
+                		".footer { text-align: center; font-size: 12px; color: #888; margin-top: 40px; }" +
+                		"@media print { .print-btn { display: none; } body { padding: 0; background: white; } }" +
+                		"</style>" +
+                		"</head>" +
+                		"<body>" +
+
+                		"<h1>🍅 Facture</h1>" +
+
+                		"<table>" +
+                		"<tr><td class='label'>Nom :</td><td class='value'>" + nom + "</td></tr>" +
+                		"<tr><td class='label'>Prénom :</td><td class='value'>" + prenom + "</td></tr>" +
+                		"<tr><td class='label'>Adresse 1 :</td><td class='value'>" + adresse1 + "</td></tr>" +
+                		"<tr><td class='label'>Adresse 2 :</td><td class='value'>" + adresse2 + "</td></tr>" +
+                		"<tr><td class='label'>Code postal :</td><td class='value'>" + codePostal + "</td></tr>" +
+                		"<tr><td class='label'>Ville :</td><td class='value'>" + ville + "</td></tr>" +
+                		"<tr><td class='label'>Téléphone :</td><td class='value'>" + telephone + "</td></tr>" +
+                		"<tr><td class='label'>Mail :</td><td class='value'>" + mail + "</td></tr>" +
+                		"<tr><td class='label'>Moyen de paiement :</td><td class='value'>" + moyenPaiement + "</td></tr>" +
+                		"<tr><td class='label'>Abonnement Newsletter :</td><td class='value'>" + abonnementNewsletter + "</td></tr>" +
+                		"</table>" +
+
+                		"<h2>Détail du panier</h2>" +
+                		"<table>" +
+                		"<tr><td class='label'>Total panier HT :</td><td class='value'>" + totalArrondiHT + " €</td></tr>" +
+                		"<tr><td class='label'>Frais de port :</td><td class='value'>5.50 €</td></tr>" +
+                		"<tr><td class='label'>Total panier TTC :</td><td class='value'>" + totalArrondi + " €</td></tr>" +
+                		"</table>" +
+
+                		"<button class='print-btn' onclick='window.print()'>🖨️ Imprimer la facture</button>" +
+                		"<div class='footer'>Merci pour votre confiance!</div>" +
+                		"</body>" +
+                		"</html>";
+
 
                 try {
                     File htmlFile = new File("facture.html");
