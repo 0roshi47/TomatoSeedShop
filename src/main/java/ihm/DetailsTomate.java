@@ -58,6 +58,7 @@ public class DetailsTomate extends JDialog {
 
 
     public DetailsTomate(String désignationTomate) {
+    	this.setModal(true);
     	Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
     	//Tomate tomate = tomates.getTomate("Tomate Joie de la Table");
     	Tomate tomate = tomates.getTomate(désignationTomate);

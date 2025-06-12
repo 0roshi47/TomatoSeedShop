@@ -23,6 +23,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JList;
 import javax.swing.ScrollPaneConstants;
 import java.awt.SystemColor;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class PagePanier extends JDialog {
 
@@ -37,6 +39,7 @@ public class PagePanier extends JDialog {
 
 	private JTextField txtTotalCalculée;
 	private JTextField txtRechercherUnArticle;
+	private JTable tableProduits;
 
 	public PagePanier() {
 		setModal(true); 
@@ -65,19 +68,10 @@ public class PagePanier extends JDialog {
 		lblNewLabel.setFont(new Font("Script MT Bold", Font.BOLD, 30));
 		Title.add(lblNewLabel, BorderLayout.WEST);
 		Title.add(Market_title, BorderLayout.CENTER);
-
-		JScrollPane TomatoList = new JScrollPane();
-		TomatoList.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		TomatoList.setToolTipText("");
-		contentPane.add(TomatoList, BorderLayout.CENTER);
 		
 		Panier[] conseils = {
 	
 	    	};
-		
-		JList list = new JList(conseils);
-		list.setToolTipText("");
-		TomatoList.setViewportView(list);
 
 		JPanel BottomPane = new JPanel();
 		contentPane.add(BottomPane, BorderLayout.SOUTH);
@@ -174,6 +168,16 @@ public class PagePanier extends JDialog {
 		
 		ButtonValiderPanier.setFont(new Font("Tahoma", Font.BOLD, 14));
 		panel_4.add(ButtonValiderPanier);
+		
+		tableProduits = new JTable();
+		tableProduits.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"New column", "Total", "Quantit\u00E9", "Produit"
+			}
+		));
+		contentPane.add(tableProduits, BorderLayout.CENTER);
 
 		ButtonViderPanier.addActionListener(new ActionListener() {
 			@Override
