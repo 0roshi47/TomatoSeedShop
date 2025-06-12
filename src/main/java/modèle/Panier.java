@@ -30,6 +30,16 @@ public class Panier {
 		this.quantité.add(nouvelleQuantité);
 	}
 	
+	public void ajouterQuantité(Tomate tomate, int nouvelleQuantité) {
+		int iTomate = 0;
+		for (int i = 0; i < this.quantité.size(); i ++) {
+			if (tomates.getTomate(i) == tomate) {
+				iTomate = i;
+			}
+		}
+		this.quantité.set(iTomate, this.quantité.get(iTomate)+nouvelleQuantité);
+	}
+	
 	public Tomates getTomates() {
 		return this.tomates;
 	}

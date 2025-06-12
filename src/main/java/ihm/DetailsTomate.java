@@ -177,8 +177,6 @@ public class DetailsTomate extends JDialog {
         
         JSpinner spinnerQuantite = new JSpinner();
         int quantiteDansPanier = 0;
-        if (tomatesDansPanier.getTomate(désignation) != null) {
-        }
         spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, tomate.getStock() - quantiteDansPanier, 1));
         panelQuantitePrix.add(spinnerQuantite);
         
@@ -188,11 +186,13 @@ public class DetailsTomate extends JDialog {
         	@Override
         	public void mousePressed(MouseEvent arg0) {
         		if ((int) spinnerQuantite.getValue() != 0) {
-        			if (tomatesDansPanier.getTomate(désignation) != null) {
-        				
+        			Panier nouveauPanier = panier;
+        			if (tomatesDansPanier.getTomate(désignationTomate) != null) {
+        				nouveauPanier.ajouterQuantité(tomate, (int) spinnerQuantite.getValue());
+        	        } else {
+        	        	nouveauPanier.ajouterTomate(tomate, (int) spinnerQuantite.getValue());
         	        }
-	        		panier.ajouterTomate(tomate, (int) spinnerQuantite.getValue());
-	        		accueil.setPanier(panier);
+        			accueil.setPanier(nouveauPanier);
 	        		dispose();
         		}
         	}
