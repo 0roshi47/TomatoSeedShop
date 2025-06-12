@@ -44,6 +44,7 @@ public class accueil extends JFrame {
 	private JPanel contentPane;
 	private JScrollPane listeTomates;
 	private static Panier panier;
+	private static JButton btnPanier;
 	private JPanel filtres;
 	private JComboBox filtreTomates;
 	private JComboBox filtreCouleurs;
@@ -88,22 +89,25 @@ public class accueil extends JFrame {
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(lblTitre, BorderLayout.CENTER);
 		
-		JButton btnPanier = new JButton("0,00€");
+		accueil.btnPanier = new JButton("0,00€");
 		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/PetitPanier3.png"));
 		Image originalImage = originalIcon.getImage();
 
 		int taille = 30;
 		Image nouvelleImage = originalImage.getScaledInstance(taille, taille, Image.SCALE_SMOOTH);
 
-		btnPanier.setIcon(new ImageIcon(nouvelleImage));
-		btnPanier.addActionListener(new ActionListener() {
+		accueil.btnPanier.setIcon(new ImageIcon(nouvelleImage));
+		accueil.btnPanier.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent arg0) {
+		    	if (accueil.panier.total() == 0.0F) {
+		    		
+		    	}
 		        PagePanier pagePanier = new PagePanier();
 		        pagePanier.setVisible(true);
 		    }
 		});
 
-		header.add(btnPanier, BorderLayout.EAST);
+		header.add(accueil.btnPanier, BorderLayout.EAST);
 		
 		listeTomates = new JScrollPane();
 		contentPane.add(listeTomates, BorderLayout.CENTER);
@@ -211,6 +215,7 @@ public class accueil extends JFrame {
 
 	public static void setPanier(Panier p) {
 		accueil.panier = p;
+		accueil.btnPanier.setText(p.total()+"€");
 	}
 	
 	public Border getFiltresBorder() {

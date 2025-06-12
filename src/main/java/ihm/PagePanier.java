@@ -182,17 +182,11 @@ public class PagePanier extends JDialog {
 						"Voulez-vous vraiment supprimer le panier ?", "Selectionner une option",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (response == JOptionPane.YES_OPTION) {
-					clearCart();
+					accueil.setPanier(new Panier());
 					dispose();
 				}
 			}
 		});
 	}
 
-	private void clearCart() {
-		textField_3.setText("");
-		textField_4.setText("");
-		txtTotalCalculée.setText("");
-		JOptionPane.showMessageDialog(this, "Le panier est maintenant vide.");
-	}
 }
