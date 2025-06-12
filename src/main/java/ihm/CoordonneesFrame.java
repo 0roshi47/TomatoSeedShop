@@ -153,6 +153,8 @@ public class CoordonneesFrame extends JDialog {
                 String ville = txtVille.getText();
                 String telephone = txtTelephone.getText();
                 String mail = txtMail.getText();
+                double total = 5.5 + accueil.getPanier().total();
+        		double totalArrondi = Math.round(total * 100.0) / 100.0;
 
                 String moyenPaiement = "";
                 if (rdbCarte.isSelected()) moyenPaiement = "Carte de crédit";
@@ -191,6 +193,7 @@ public class CoordonneesFrame extends JDialog {
                         "<tr><td class='label'>Moyen de paiement :</td><td class='value'>" + moyenPaiement + "</td></tr>" +
                         "<tr><td class='label'>Abonnement Newsletter :</td><td class='value'>" + abonnementNewsletter + "</td></tr>" +
                         "</table>" +
+                        "<tr><td class='label'>total panier TTC:</td><td class='value'>"+totalArrondi + " €"+"</td></tr>"+
                         "<button class='print-btn' onclick='window.print()'>🖨️ Imprimer la facture</button>" +
                         "<div class='footer'>Merci pour votre confiance!</div>" +
                         "</body>" +
