@@ -63,10 +63,12 @@ public class DetailsTomate extends JDialog {
     	Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
     	Tomate tomate = tomates.getTomate(désignationTomate);
     	List<Tomate> tomatesAparentees = tomate.getTomatesApparentées();
+    	Panier panier = accueil.getPanier();
+    	Tomates tomatesDansPanier = panier.getTomates();
     	
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Détail de la tomate");
-        setBounds(100, 100, 515, 355);
+        setBounds(100, 100, 515, 380);
         setResizable(false);
 
         contentPane = new JPanel();
@@ -116,7 +118,7 @@ public class DetailsTomate extends JDialog {
         for (Tomate tomateAparentee : tomatesAparentees) {
             produitsSimilaires.addItem(tomateAparentee.getDésignation());
         }
-        panelStock.add(produitsSimilaires);
+        panelStock.add(produitsSimilaires, GridLayout.class);
         produitsSimilaires.setToolTipText("Produits similaires");
 
         JPanel panelDroite = new JPanel();
@@ -173,7 +175,10 @@ public class DetailsTomate extends JDialog {
         textPrix.setColumns(3);
         
         JSpinner spinnerQuantite = new JSpinner();
-        spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, tomate.getStock(), 1));
+        int quantiteDansPanier = 0;
+        if (tomatesDansPanier.getTomate(désignation) != null) {
+        }
+        spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, tomate.getStock() - quantiteDansPanier, 1));
         panelQuantitePrix.add(spinnerQuantite);
         
         JButton btnAjouter = new JButton("Ajouter au panier");
@@ -198,7 +203,7 @@ public class DetailsTomate extends JDialog {
         } else {
         	produitsSimilaires.setVisible(false);
         }
-        panelStock.add(lblDisponibilite);
+        panelStock.add(lblDisponibilite, GridLayout.class);
     }
     
     // Version vue design
