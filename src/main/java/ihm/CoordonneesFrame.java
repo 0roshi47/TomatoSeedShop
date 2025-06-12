@@ -95,7 +95,7 @@ public class CoordonneesFrame extends JDialog {
         txtMail = new JTextField();
         txtMail.setBounds(150, 270, 300, 20);
         getContentPane().add(txtMail);
-        
+
         JPanel panelPaiement = new JPanel();
         panelPaiement.setForeground(new Color(34, 139, 34));
         panelPaiement.setBorder(BorderFactory.createTitledBorder("Moyen de paiement"));
@@ -104,12 +104,11 @@ public class CoordonneesFrame extends JDialog {
         panelPaiement.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
         JRadioButton rdbCarte = new JRadioButton("Carte de crédit");
-        panelPaiement.add(rdbCarte);
-
         JRadioButton rdbPaypal = new JRadioButton("Paypal");
-        panelPaiement.add(rdbPaypal);
-
         JRadioButton rdbCheque = new JRadioButton("Chèque");
+
+        panelPaiement.add(rdbCarte);
+        panelPaiement.add(rdbPaypal);
         panelPaiement.add(rdbCheque);
 
         ButtonGroup bgPaiement = new ButtonGroup();
@@ -124,9 +123,9 @@ public class CoordonneesFrame extends JDialog {
         panelNewsletter.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
         JRadioButton rdbOui = new JRadioButton("Oui");
-        panelNewsletter.add(rdbOui);
-
         JRadioButton rdbNon = new JRadioButton("Non");
+
+        panelNewsletter.add(rdbOui);
         panelNewsletter.add(rdbNon);
 
         ButtonGroup bgNewsletter = new ButtonGroup();
@@ -155,43 +154,47 @@ public class CoordonneesFrame extends JDialog {
                 String telephone = txtTelephone.getText();
                 String mail = txtMail.getText();
 
+                String moyenPaiement = "";
+                if (rdbCarte.isSelected()) moyenPaiement = "Carte de crédit";
+                else if (rdbPaypal.isSelected()) moyenPaiement = "Paypal";
+                else if (rdbCheque.isSelected()) moyenPaiement = "Chèque";
+
+                String abonnementNewsletter = rdbOui.isSelected() ? "Oui" : "Non";
+
                 String htmlContent = "<html>" +
-                		"<head>" +
-                		"<title>Facture</title>" +
-                		"<style>" +
-                		"body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin: 0; padding: 40px; }" +
-                		
-               			"h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }" +
-                		"table { width: 100%; border-collapse: collapse; }" +
-                		"td.label { font-weight: bold; background-color: #ecf0f1; padding: 10px; width: 35%; color: #2c3e50; }" +
-                		"td.value { background-color: #fdfdfd; padding: 10px; color: #34495e; }" +
-                		"tr:nth-child(even) td { background-color: #f8f8f8; }" +
-                		".print-btn { background-color: #3498db; color: white; padding: 12px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin: 30px auto 0; display: block; }" +
-                		".print-btn:hover { background-color: #2980b9; }" +
-                		".footer { text-align: center; font-size: 12px; color: #999; margin-top: 40px; }" +
-                		"@media print { .print-btn { display: none; } body { padding: 0; background: white; } }" +
-                		"</style>" +
-                		"</head>" +
-                		"<body>" +
-                		
-                		"<h1>Facture</h1>" +
-                		"<table>" +
-                		"<tr><td class='label'>Nom :</td><td class='value'>" + nom + "</td></tr>" +
-                		"<tr><td class='label'>Prénom :</td><td class='value'>" + prenom + "</td></tr>" +
-                		"<tr><td class='label'>Adresse 1 :</td><td class='value'>" + adresse1 + "</td></tr>" +
-                		"<tr><td class='label'>Adresse 2 :</td><td class='value'>" + adresse2 + "</td></tr>" +
-                		"<tr><td class='label'>Code postal :</td><td class='value'>" + codePostal + "</td></tr>" +
-                		"<tr><td class='label'>Ville :</td><td class='value'>" + ville + "</td></tr>" +
-                		"<tr><td class='label'>Téléphone :</td><td class='value'>" + telephone + "</td></tr>" +
-                		"<tr><td class='label'>Mail :</td><td class='value'>" + mail + "</td></tr>" +
-                		"</table>" +
-                		"<button class='print-btn' onclick='window.print()'>🖨️ Imprimer la facture</button>" +
-                		"<div class='footer'>Merci pour votre confiance. Cette facture a été générée automatiquement.</div>" +
-                		"</div>" +
-                		"</body>" +
-                		"</html>";
-
-
+                        "<head>" +
+                        "<title>Facture</title>" +
+                        "<style>" +
+                        "body { font-family: 'Segoe UI', sans-serif; background-color: #fff8f0; margin: 0; padding: 40px; color: #3e3e3e; }" +
+                        "h1 { text-align: center; color: #b22222; margin-bottom: 30px; font-size: 32px; }" +
+                        "table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }" +
+                        "td.label { font-weight: bold; background-color: #f0e5d8; padding: 10px; width: 35%; color: #5a2d0c; }" +
+                        "td.value { background-color: #fffdfb; padding: 10px; color: #3e3e3e; }" +
+                        "tr:nth-child(even) td { background-color: #f9f3ee; }" +
+                        ".print-btn { background-color: #b22222; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin: 30px auto 0; display: block; font-weight: bold; }" +
+                        ".print-btn:hover { background-color: #a11c1c; }" +
+                        ".footer { text-align: center; font-size: 12px; color: #888; margin-top: 40px; }" +
+                        "@media print { .print-btn { display: none; } body { padding: 0; background: white; } }" +
+                        "</style>" +
+                        "</head>" +
+                        "<body>" +
+                        "<h1>🍅 Facture</h1>" +
+                        "<table>" +
+                        "<tr><td class='label'>Nom :</td><td class='value'>" + nom + "</td></tr>" +
+                        "<tr><td class='label'>Prénom :</td><td class='value'>" + prenom + "</td></tr>" +
+                        "<tr><td class='label'>Adresse 1 :</td><td class='value'>" + adresse1 + "</td></tr>" +
+                        "<tr><td class='label'>Adresse 2 :</td><td class='value'>" + adresse2 + "</td></tr>" +
+                        "<tr><td class='label'>Code postal :</td><td class='value'>" + codePostal + "</td></tr>" +
+                        "<tr><td class='label'>Ville :</td><td class='value'>" + ville + "</td></tr>" +
+                        "<tr><td class='label'>Téléphone :</td><td class='value'>" + telephone + "</td></tr>" +
+                        "<tr><td class='label'>Mail :</td><td class='value'>" + mail + "</td></tr>" +
+                        "<tr><td class='label'>Moyen de paiement :</td><td class='value'>" + moyenPaiement + "</td></tr>" +
+                        "<tr><td class='label'>Abonnement Newsletter :</td><td class='value'>" + abonnementNewsletter + "</td></tr>" +
+                        "</table>" +
+                        "<button class='print-btn' onclick='window.print()'>🖨️ Imprimer la facture</button>" +
+                        "<div class='footer'>Merci pour votre confiance!</div>" +
+                        "</body>" +
+                        "</html>";
 
                 try {
                     File htmlFile = new File("facture.html");
