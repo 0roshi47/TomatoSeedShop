@@ -90,7 +90,7 @@ public class accueil extends JFrame {
 		lblTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(lblTitre, BorderLayout.CENTER);
 		
-		accueil.btnPanier = new JButton("0,00€");
+		accueil.btnPanier = new JButton("0.00€");
 		ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/PetitPanier3.png"));
 		Image originalImage = originalIcon.getImage();
 
@@ -217,8 +217,9 @@ public class accueil extends JFrame {
 	}
 
 	public static void setPanier(Panier p) {
+		double totalArrondiHT = Math.round(accueil.getPanier().total() * 100.0) / 100.0;
 		accueil.panier = p;
-		accueil.btnPanier.setText(p.total()+"€");
+		accueil.btnPanier.setText(totalArrondiHT + "€");
 	}
 	
 	public Border getFiltresBorder() {
