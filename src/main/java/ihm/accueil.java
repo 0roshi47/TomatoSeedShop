@@ -285,4 +285,9 @@ public class accueil extends JFrame {
 		});
 		listeTomates.setViewportView(listeNoms);
 	}
+	
+	public static double arrondi(float nombre, int décimales) {
+		Double pow = Math.pow(10, décimales);
+		return Math.round(nombre * pow) / pow; 
+	}
 }

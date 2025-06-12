@@ -231,7 +231,7 @@ public class PagePanier extends JDialog {
 		for (int i = 0; i < quantité.size(); i++) {
 			Tomate tomate = tomates.getTomate(i);
 			ImageIcon imageTomate = new ImageIcon(getClass().getResource("/images/Tomates40x40/" + tomate.getNomImage() + ".jpg"));
-			newRow = new Object[] {imageTomate, tomate.getDésignation(), tomate.getPrixTTC()+"€", quantité.get(i), tomate.getPrixTTC()*quantité.get(i)+"€"};
+			newRow = new Object[] {imageTomate, tomate.getDésignation(), tomate.getPrixTTC()+"€", quantité.get(i), accueil.arrondi(tomate.getPrixTTC()*quantité.get(i), 2) +"€"};
 			model.addRow(newRow);
 		}
 		
