@@ -1,6 +1,11 @@
 package ihm;
 
 import javax.swing.*;
+
+import modèle.Panier;
+import modèle.Tomate;
+import modèle.Tomates;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class CoordonneesFrame extends JDialog {
     private JTextField txtNom;
@@ -21,6 +27,13 @@ public class CoordonneesFrame extends JDialog {
 
     public CoordonneesFrame(JFrame parent) {
         super(parent, "Ô'Tomates", true);
+        
+        Panier panier = PagePanier.getPanier();
+        Tomates tomates = panier.getTomates();
+        List<Tomate> listTomates = tomates.getTomates();
+        List<Integer> listQuantite = panier.getQuantité();
+        
+        
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setSize(520, 550);
         setLocationRelativeTo(parent);
@@ -203,11 +216,15 @@ public class CoordonneesFrame extends JDialog {
 
                 	    // Tableau statique des produits (exemple)
                 	    "<table>" +
-                	    "<tr><th>Produit</th><th>Prix</th><th>Quantité</th><th>Total</th></tr>" +
-                	    "<tr><td>Tomates cerises</td><td>3.50 €</td><td>2</td><td>7.00 €</td></tr>" +
-                	    "<tr><td>Tomates Roma</td><td>4.00 €</td><td>1</td><td>4.00 €</td></tr>" +
-                	    "<tr><td>Tomates cœur de bœuf</td><td>5.00 €</td><td>3</td><td>15.00 €</td></tr>" +
-                	    "</table>" +
+                	    "<tr><th>Produit</th><th>Prix</th><th>Quantité</th><th>Total</th></tr>";
+                
+                for (int i = 0; i < listTomates.size(); i++) {
+                	Tomate tomate = listTomates.get(i);
+                	int quantite = listQuantite.get(i);
+                	htmlContent += "<tr><td>" + tomate.getDésignation() + "</td><td>" + tomate.getPrixTTC() + " €</td><td>" + quantite + "</td><td>" + tomate.getPrixTTC()*quantite + " €</td></tr>";
+                }
+                	    
+                htmlContent += "</table>" +
 
                 	    "<table>" +
                 	    "<tr><td class='label'>Total panier HT :</td><td class='value'>" + totalArrondiHT + " €</td></tr>" +

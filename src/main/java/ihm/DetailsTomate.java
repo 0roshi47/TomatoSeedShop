@@ -210,10 +210,5 @@ public class DetailsTomate extends JDialog {
         }
         panelStock.add(lblDisponibilite);
     }
-    
-    // Version vue design
-    public DetailsTomate() {
-    	this("Tomate Russian Persimmon");
-    }
 }
 

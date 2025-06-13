@@ -237,4 +237,8 @@ public class PagePanier extends JDialog {
 		
 	}
 	
+	public static Panier getPanier() {
+		return accueil.getPanier();
+	}
+	
 }
