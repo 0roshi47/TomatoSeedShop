@@ -45,6 +45,9 @@ import javax.swing.SpringLayout;
 import java.awt.CardLayout;
 import java.awt.Font;
 import javax.swing.DropMode;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
@@ -116,12 +119,25 @@ public class DetailsTomate extends JDialog {
         panelStock.setLayout(new GridLayout(2, 1, 0, 0));
                 
         JComboBox<String> produitsSimilaires = new JComboBox<>();
+        produitsSimilaires.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String tomateSimilaire = (String) produitsSimilaires.getSelectedItem();
+                if (tomateSimilaire != "Produits similaires") {
+                    // Ouvrir une nouvelle instance de DetailsTomate
+                    new DetailsTomate(tomateSimilaire).setVisible(true);
+                }
+            }
+        });
         produitsSimilaires.addItem("Produits similaires");
         for (Tomate tomateAparentee : tomatesAparentees) {
             produitsSimilaires.addItem(tomateAparentee.getDésignation());
         }
         panelStock.add(produitsSimilaires);
-        produitsSimilaires.setToolTipText("Produits similaires");
+        //this.filtreCouleurs.addActionListener(new ActionListener() {
+			//public void actionPerformed(ActionEvent e) {
+				//actualiserListeTomate();
+			//}
 
         JPanel panelDroite = new JPanel();
         panelHaut.add(panelDroite);
@@ -211,10 +227,5 @@ public class DetailsTomate extends JDialog {
         	produitsSimilaires.setVisible(false);
         }
         panelStock.add(lblDisponibilite);
-    }
-    
-    // Version vue design
-    public DetailsTomate() {
-    	this("Tomate Russian Persimmon");
     }
 }
