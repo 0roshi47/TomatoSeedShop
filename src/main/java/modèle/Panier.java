@@ -24,10 +24,19 @@ public class Panier {
 	}
 	
 	public void ajouterTomate(Tomate tomate, int nouvelleQuantité) {
-		List<Tomate> nouvelleTomate = new LinkedList<Tomate>();
-        nouvelleTomate.add(tomate);
-		this.tomates.addTomates(nouvelleTomate);
-		this.quantité.add(nouvelleQuantité);
+		if (this.tomates.getTomate(tomate.getDésignation()) != null) {
+			List<Tomate> listTomatesDansPanier = this.tomates.getTomates();
+			for (int position = 0; position < listTomatesDansPanier.size(); position++) {
+				if (this.tomates.getTomate(position).equals(tomate)) {
+					this.quantité.set(position, this.quantité.get(position)+nouvelleQuantité);
+				}
+			}
+		} else {
+			List<Tomate> nouvelleTomate = new LinkedList<Tomate>();
+	        nouvelleTomate.add(tomate);
+			this.tomates.addTomates(nouvelleTomate);
+			this.quantité.add(nouvelleQuantité);
+		}
 	}
 	
 	public void ajouterQuantité(Tomate tomate, int nouvelleQuantité) {

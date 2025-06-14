@@ -134,10 +134,6 @@ public class DetailsTomate extends JDialog {
             produitsSimilaires.addItem(tomateAparentee.getDésignation());
         }
         panelStock.add(produitsSimilaires);
-        //this.filtreCouleurs.addActionListener(new ActionListener() {
-			//public void actionPerformed(ActionEvent e) {
-				//actualiserListeTomate();
-			//}
 
         JPanel panelDroite = new JPanel();
         panelHaut.add(panelDroite);
@@ -204,11 +200,7 @@ public class DetailsTomate extends JDialog {
         	public void mousePressed(MouseEvent arg0) {
         		if ((int) spinnerQuantite.getValue() != 0) {
         			Panier nouveauPanier = panier;
-        			if (tomatesDansPanier.getTomate(désignationTomate) != null) {
-        				nouveauPanier.ajouterQuantité(tomate, (int) spinnerQuantite.getValue());
-        	        } else {
-        	        	nouveauPanier.ajouterTomate(tomate, (int) spinnerQuantite.getValue());
-        	        }
+        	        nouveauPanier.ajouterTomate(tomate, (int) spinnerQuantite.getValue());
         			accueil.setPanier(nouveauPanier);
 	        		dispose();
         		}
