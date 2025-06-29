@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -31,8 +32,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.FlowLayout;
 import javax.swing.border.Border;
@@ -49,6 +54,7 @@ public class accueil extends JFrame {
 	private JPanel filtres;
 	private JComboBox filtreTomates;
 	private JComboBox filtreCouleurs;
+	private JTextField rechercheTomate;
 	
 	/**
 	 * Launch the application.
@@ -75,6 +81,7 @@ public class accueil extends JFrame {
 		this.panier = new Panier();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(800, 600));
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -170,6 +177,36 @@ public class accueil extends JFrame {
 		panelFiltreCouleurs.add(this.filtreCouleurs);
 		this.filtreCouleurs.setModel(new DefaultComboBoxModel(new String[] {"Toutes les couleurs", "Bleu", "Vert", "Rouge", "Orange", "Jaune", "Noir", "Multicolore"}));
 		
+		JPanel panelRechercheTomates = new JPanel();
+		filtres.add(panelRechercheTomates);
+		
+		JLabel imageRechercheTomate= new JLabel("");
+		originalIcon = new ImageIcon(getClass().getResource("/images/ProjectImages/loupe.png"));
+		originalImage = originalIcon.getImage();
+		nouvelleImage = originalImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		imageRechercheTomate.setIcon(new ImageIcon(nouvelleImage));
+		imageRechercheTomate.setHorizontalAlignment(SwingConstants.LEFT);
+		panelRechercheTomates.add(imageRechercheTomate);
+		
+		rechercheTomate = new JTextField(15);
+		panelRechercheTomates.add(rechercheTomate);
+		rechercheTomate.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        actualiserListeTomate();
+		    }
+		});
+		rechercheTomate.getDocument().addDocumentListener(new DocumentListener() {
+		    public void insertUpdate(DocumentEvent e) {
+		        actualiserListeTomate();
+		    }
+		    public void removeUpdate(DocumentEvent e) {
+		        actualiserListeTomate();
+		    }
+		    public void changedUpdate(DocumentEvent e) {
+		        actualiserListeTomate();
+		    }
+		});
+		
 		JButton conseils = new JButton("");
 		conseils.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -230,61 +267,36 @@ public class accueil extends JFrame {
 	}
 	
 	public void actualiserListeTomate() {
-		Couleur nouvelleCouleur = Couleur.getCouleur((String) this.filtreCouleurs.getSelectedItem());
-		TypeTomate nouveauType = TypeTomate.getTypeTomate((String) this.filtreTomates.getSelectedItem());
-		if (nouvelleCouleur == null && nouveauType == null) {
-			accueil.this.afficherToutesLesTomates();
-			return;
-		}
-		Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
-		List<String> nomsCouleur = new ArrayList<>();
-		
-		for (Tomate tomate : tomates.getTomates()) {
-			if (tomate.getCouleur() == nouvelleCouleur) {						
-				nomsCouleur.add(tomate.getDésignation());
-			}
-		}
-		
-		List<String> nomsType = new ArrayList<>();
-		
-		for (Tomate tomate : tomates.getTomates()) {
-			if (tomate.getType() == nouveauType) {						
-				nomsType.add(tomate.getDésignation());
-			}
-		}
-		
-		List<String> noms = new ArrayList<>();
+	    String nouvelleRecherche = rechercheTomate.getText().toLowerCase();
+	    Couleur nouvelleCouleur = Couleur.getCouleur((String) this.filtreCouleurs.getSelectedItem());
+	    TypeTomate nouveauType = TypeTomate.getTypeTomate((String) this.filtreTomates.getSelectedItem());
 
-		if (nouvelleCouleur == null) {
-			for (String nom : nomsType) {
-				noms.add(nom);
-			}
-		}
-		else if (nouveauType == null) {
-			for (String nom : nomsCouleur) {
-				noms.add(nom);
-			}	
-		}
-		else {
-			for (String nom : nomsCouleur) {
-				if (nomsType.contains(nom)) {
-					noms.add(nom);
-				}
-			}			
-		}
-		
-		JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
-		listeNoms.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				String tomateLibellé = listeNoms.getSelectedValue();
-				System.out.println(tomateLibellé);
-				DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
-				pageDetails.setVisible(true);
-			}
-		});
-		listeTomates.setViewportView(listeNoms);
+	    Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
+	    List<String> noms = new ArrayList<>();
+
+	    for (Tomate tomate : tomates.getTomates()) {
+	        boolean couleurCorrespond = (nouvelleCouleur == null || tomate.getCouleur() == nouvelleCouleur);
+	        boolean typeCorrespond = (nouveauType == null || tomate.getType() == nouveauType);
+	        boolean rechercheCorrespond = (nouvelleRecherche.isEmpty() || tomate.getDésignation().toLowerCase().contains(nouvelleRecherche));
+
+	        if (couleurCorrespond && typeCorrespond && rechercheCorrespond) {
+	            noms.add(tomate.getDésignation());
+	        }
+	    }
+
+	    JList<String> listeNoms = new JList<>(noms.toArray(new String[0]));
+	    listeNoms.addMouseListener(new MouseAdapter() {
+	        @Override
+	        public void mouseClicked(MouseEvent arg0) {
+	            String tomateLibellé = listeNoms.getSelectedValue();
+	            System.out.println(tomateLibellé);
+	            DetailsTomate pageDetails = new DetailsTomate(tomateLibellé);
+	            pageDetails.setVisible(true);
+	        }
+	    });
+	    listeTomates.setViewportView(listeNoms);
 	}
+
 	
 	public static double arrondi(float nombre, int décimales) {
 		Double pow = Math.pow(10, décimales);
