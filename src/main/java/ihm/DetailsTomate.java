@@ -1,110 +1,223 @@
 package ihm;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import modèle.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+
+import modèle.Panier;
+import modèle.Tomate;
+import modèle.Tomates;
+import modèle.OutilsBaseDonneesTomates;
+
+import javax.swing.border.TitledBorder;
+import javax.swing.JTextField;
+import java.awt.FlowLayout;
+
+import javax.swing.AbstractButton;
+import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
+
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JSpinner;
+import javax.swing.border.EtchedBorder;
+import javax.swing.SpinnerNumberModel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.miginfocom.swing.MigLayout;
+import javax.swing.SpringLayout;
+import java.awt.CardLayout;
+import java.awt.Font;
+import javax.swing.DropMode;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
+import javax.swing.SwingConstants;
 
 public class DetailsTomate extends JDialog {
 
     private static final long serialVersionUID = 1L;
-    private JSpinner spinnerQuantite;
+    private JPanel contentPane;
+    private JTextField textNbGraines;
+    private JTextField textPrix;
 
-    // Constructeur prend l'objet Tomate direct
-    public DetailsTomate(Tomate tomate) {
-        setModal(true);
+    // version application
+    public DetailsTomate(String désignationTomate) {
+    	this.setModal(true);
+    	Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("src/main/resources/data/tomates.json");
+    	Tomate tomate = tomates.getTomate(désignationTomate);
+    	List<Tomate> tomatesAparentees = tomate.getTomatesApparentées();
+    	Panier panier = accueil.getPanier();
+    	Tomates tomatesDansPanier = panier.getTomates();
+    	
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setTitle("Détail : " + tomate.getDésignation());
-        setBounds(100, 100, 600, 450);
-        getContentPane().setLayout(new BorderLayout(10, 10));
+        setTitle("Détail de la tomate");
+        setBounds(100, 100, 515, 380);
+        setResizable(false);
 
-        // --- HAUT : Image et Infos ---
-        JPanel panelInfo = new JPanel(new GridLayout(1, 2, 10, 0));
-        getContentPane().add(panelInfo, BorderLayout.CENTER);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        // Gauche : Image + Stock
-        JPanel panelGauche = new JPanel(new BorderLayout());
+        setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout(0, 0));
+
+        String désignation = "Tomates de test";
+        String prix = "10 €";
+        int maxQuantité = 10;
+
+        JPanel panelButtons = new JPanel();
+        contentPane.add(panelButtons, BorderLayout.SOUTH);
+        
+        JButton btnAnnuler = new JButton("Annuler");
+        btnAnnuler.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent arg0) {
+        		dispose();
+        	}
+        });
+        panelButtons.add(btnAnnuler);
+
+        JPanel panelHaut = new JPanel();
+        contentPane.add(panelHaut, BorderLayout.CENTER);
+        panelHaut.setLayout(new GridLayout(0, 2, 0, 0));
+
+        JPanel panelGauche = new JPanel();
+        panelHaut.add(panelGauche);
+        panelGauche.setLayout(new BorderLayout(0, 0));
+
         JPanel panelImage = new JPanel();
-        panelImage.setBorder(new TitledBorder(new EtchedBorder(), tomate.getDésignation()));
-        
-        try {
-            ImageIcon icon = new ImageIcon(getClass().getResource("/images/Tomates200x200/" + tomate.getNomImage() + ".jpg"));
-            panelImage.add(new JLabel(icon));
-        } catch (Exception e) { panelImage.add(new JLabel("Image non trouvée")); }
-        
-        panelGauche.add(panelImage, BorderLayout.CENTER);
-        
-        // Indicateur de stock
-        JLabel lblStock = new JLabel();
-        lblStock.setHorizontalAlignment(SwingConstants.CENTER);
-        lblStock.setFont(new Font("Tahoma", Font.BOLD, 14));
-        if (tomate.getStock() > 0) {
-            lblStock.setText("En stock (" + tomate.getStock() + ")");
-            lblStock.setForeground(new Color(0, 128, 0));
-        } else {
-            lblStock.setText("Rupture de stock");
-            lblStock.setForeground(Color.RED);
-        }
-        panelGauche.add(lblStock, BorderLayout.SOUTH);
-        panelInfo.add(panelGauche);
+        panelImage.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), tomate.getDésignation(), TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 0)));
+        panelGauche.add(panelImage, BorderLayout.NORTH);
 
-        // Droite : Description + Similaires
-        JPanel panelDroite = new JPanel(new BorderLayout());
-        JTextArea txtDesc = new JTextArea(tomate.getDescription().replace("\\r\\n", "\n"));
-        txtDesc.setWrapStyleWord(true);
-        txtDesc.setLineWrap(true);
-        txtDesc.setEditable(false);
-        txtDesc.setBorder(new TitledBorder("Description"));
-        panelDroite.add(new JScrollPane(txtDesc), BorderLayout.CENTER);
-
-        JComboBox<String> comboSimilaires = new JComboBox<>();
-        comboSimilaires.addItem("Produits similaires...");
-        for(Tomate t : tomate.getTomatesApparentées()) {
-            comboSimilaires.addItem(t.getDésignation());
-        }
-        comboSimilaires.addActionListener(e -> {
-            if(comboSimilaires.getSelectedIndex() > 0) {
-                String nom = (String) comboSimilaires.getSelectedItem();
-                // Ouvre la page de la tomate similaire depuis la base centrale
-                Tomate similar = accueil.getBaseDeDonnees().getTomate(nom);
-                if(similar != null) {
-                    dispose(); // Ferme l'actuelle
-                    new DetailsTomate(similar).setVisible(true);
+        JLabel lblImage = new JLabel("");
+        lblImage.setIcon(new ImageIcon(getClass().getResource("/images/Tomates200x200/" + tomate.getNomImage() + ".jpg")));
+        panelImage.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panelImage.add(lblImage);
+        
+        JPanel panelStock = new JPanel();
+        panelGauche.add(panelStock, BorderLayout.SOUTH);
+        panelStock.setLayout(new GridLayout(2, 1, 0, 0));
+                
+        JComboBox<String> produitsSimilaires = new JComboBox<>();
+        produitsSimilaires.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String tomateSimilaire = (String) produitsSimilaires.getSelectedItem();
+                if (tomateSimilaire != "Produits similaires") {
+                    // Ouvrir une nouvelle instance de DetailsTomate
+                    new DetailsTomate(tomateSimilaire).setVisible(true);
                 }
             }
         });
-        panelDroite.add(comboSimilaires, BorderLayout.SOUTH);
-        panelInfo.add(panelDroite);
+        produitsSimilaires.addItem("Produits similaires");
+        for (Tomate tomateAparentee : tomatesAparentees) {
+            produitsSimilaires.addItem(tomateAparentee.getDésignation());
+        }
+        panelStock.add(produitsSimilaires);
 
-        // --- BAS : Achat ---
-        JPanel panelBas = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        getContentPane().add(panelBas, BorderLayout.SOUTH);
-
-        JLabel lblPrix = new JLabel("Prix : " + tomate.getPrixTTC() + "€");
-        lblPrix.setFont(new Font("Arial", Font.BOLD, 16));
-        panelBas.add(lblPrix);
-
-        spinnerQuantite = new JSpinner(new SpinnerNumberModel(1, 1, Math.max(1, tomate.getStock()), 1));
-        panelBas.add(new JLabel("Qté:"));
-        panelBas.add(spinnerQuantite);
-
+        JPanel panelDroite = new JPanel();
+        panelHaut.add(panelDroite);
+        panelDroite.setLayout(new BorderLayout(0, 0));
+        
+        JPanel panelDescription = new JPanel();
+        panelDescription.setBorder(new TitledBorder(null, "Description", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 0)));
+        panelDroite.add(panelDescription);
+        panelDescription.setLayout(new BoxLayout(panelDescription, BoxLayout.X_AXIS));
+        
+        JScrollPane scrollPane = new JScrollPane();
+        panelDescription.add(scrollPane);
+        
+        String texte = tomate.getDescription();
+        texte = texte.replace("\\r\\n\\r\\n", "\n\n");
+        JTextArea textDescription = new JTextArea(texte);
+        textDescription.setWrapStyleWord(true);
+        textDescription.setForeground(new Color(0, 0, 0));
+        textDescription.setLineWrap(true);
+        textDescription.setToolTipText("");
+        textDescription.setColumns(1);
+        textDescription.setEditable(false);
+        textDescription.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        scrollPane.setViewportView(textDescription);
+        
+        
+        JPanel panelNbQuantite = new JPanel();
+        panelDroite.add(panelNbQuantite, BorderLayout.SOUTH);
+        panelNbQuantite.setLayout(new BorderLayout(0, 0));
+        
+        JPanel panelNbGraines = new JPanel();
+        panelNbQuantite.add(panelNbGraines, BorderLayout.NORTH);
+        
+        JLabel lblNbGraines = new JLabel("Nombre de graines :");
+        panelNbGraines.add(lblNbGraines);
+        
+        textNbGraines = new JTextField();
+        textNbGraines.setText(String.valueOf(tomate.getNbGrainesParSachet()));
+        textNbGraines.setEditable(false);
+        panelNbGraines.add(textNbGraines);
+        textNbGraines.setColumns(2);
+        
+        JPanel panelQuantitePrix = new JPanel();
+        panelNbQuantite.add(panelQuantitePrix, BorderLayout.CENTER);
+        
+        JLabel lblQuantite = new JLabel("Prix :");
+        panelQuantitePrix.add(lblQuantite);
+        
+        textPrix = new JTextField();
+        textPrix.setText(String.valueOf(tomate.getPrixTTC() + "€"));
+        textPrix.setEditable(false);
+        panelQuantitePrix.add(textPrix);
+        textPrix.setColumns(3);
+        
+        JSpinner spinnerQuantite = new JSpinner();
+        int quantiteDansPanier = 0;
+        spinnerQuantite.setModel(new SpinnerNumberModel(0, 0, tomate.getStock() - quantiteDansPanier, 1));
+        panelQuantitePrix.add(spinnerQuantite);
+        
         JButton btnAjouter = new JButton("Ajouter au panier");
-        btnAjouter.addActionListener(e -> {
-            int qte = (int) spinnerQuantite.getValue();
-            accueil.getPanier().ajouterTomate(tomate, qte);
-            accueil.updateBtnPanier();
-            dispose();
+        panelButtons.add(btnAjouter);
+        btnAjouter.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent arg0) {
+        		if ((int) spinnerQuantite.getValue() != 0) {
+        			Panier nouveauPanier = panier;
+        	        nouveauPanier.ajouterTomate(tomate, (int) spinnerQuantite.getValue());
+        			accueil.setPanier(nouveauPanier);
+	        		dispose();
+        		}
+        	}
         });
         
-        JButton btnAnnuler = new JButton("Annuler");
-        btnAnnuler.addActionListener(e -> dispose());
-
-        if (tomate.getStock() == 0) {
-            btnAjouter.setEnabled(false);
-            spinnerQuantite.setEnabled(false);
+        JLabel lblDisponibilite = new JLabel("En stock");
+        lblDisponibilite.setHorizontalAlignment(SwingConstants.CENTER);
+        lblDisponibilite.setForeground(new Color(0, 128, 0));
+        if(tomate.getStock() == 0) {
+        	lblDisponibilite.setText("En rupture");
+        	lblDisponibilite.setForeground(new Color(128, 0, 0));
+         	btnAjouter.setEnabled(false);
+         	spinnerQuantite.setEnabled(false);
+        } else {
+        	produitsSimilaires.setVisible(false);
         }
-
-        panelBas.add(btnAjouter);
-        panelBas.add(btnAnnuler);
+        panelStock.add(lblDisponibilite);
     }
 }
